@@ -1,0 +1,86 @@
+package com.shop.user;
+
+public class User {
+	private long id;
+	private String lastName;
+	private String firstName;
+	private String telefon;
+	private String adresa;
+	private String oras;
+	private String judet;
+	private String codPostal;
+	private String email;
+	private String password;
+	
+	
+	
+	public User(String lastName, String firstName, String email) {
+		super();
+		this.lastName = lastName;
+		this.firstName = firstName;
+		this.email = email;
+	}
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	public String getFirstName() {
+		return firstName;
+	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public String getTelefon() {
+		return telefon;
+	}
+	public void setTelefon(String telefon) {
+		this.telefon = telefon;
+	}
+	public String getAdresa() {
+		return adresa;
+	}
+	public void setAdresa(String adresa) {
+		this.adresa = adresa;
+	}
+	public String getOras() {
+		return oras;
+	}
+	public void setOras(String oras) {
+		this.oras = oras;
+	}
+	public String getJudet() {
+		return judet;
+	}
+	public void setJudet(String judet) {
+		this.judet = judet;
+	}
+	public String getCodPostal() {
+		return codPostal;
+	}
+	public void setCodPostal(String codPostal) {
+		this.codPostal = codPostal;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	
+	
+}
