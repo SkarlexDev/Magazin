@@ -1,0 +1,68 @@
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Magazin</title>
+<link rel="icon"
+	href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSH66yvKGCVjCsfbsmaqh2KHN-K2P_JTUdf6g&usqp=CAU">
+<link rel="stylesheet" th:href="@{/css/itemMainS.css}">
+<link rel="stylesheet" th:href="@{/css/mainStyle.css}">
+</head>
+<body>
+	<div class="mainbody">
+		<div class="header">
+			<div class="navbar">
+				<a href="/home">Home</a> 
+				<a href="login.html">Login</a>
+				<!-- Hide 1-->
+				<a href="register.html">Register</a>
+				<!-- Hide 1-->
+				<a href="profile.html">Account</a>
+				<!-- Hide 2-->
+				<a href="">Cart</a> <a href="">Logout</a>
+				<!-- Hide 2-->
+
+			</div>
+		</div>
+		<div class="head_elem">
+			<div class="col-container">
+				<div class="vertical_info">
+					<p>Produse</p>
+					<div class="vertical-menu">
+						<a href="/shop/Telefoane">Telefoane</a> 
+						<a href="/shop/Televizoare">Televizoare</a>
+						<a href="/shop/laptopuri">laptopuri</a> 
+						<a href="#">Link 4</a> 
+					</div>
+				</div>
+				<div class="section col">
+					<h2>Welcome to our site</h2>
+					<p th:text="${category}"></p>
+				</div>
+			</div>
+		</div>
+		<div class="space_section"></div>
+		<div class="items_list">
+			<div class="container">
+				<!-- produs -->
+				<div th:each="item : ${items}" class="item">
+					<!--<a th:href="@{/{category}/{item}(category=${item.category}, item=${item.id})}">-->
+					<a th:href="@{/shop/{category}/{item}(category=${category}, item=${item.id})}">
+						<img class="inner_image" th:src="${item.imageURL}"
+								alt="Descriere">
+						<h2 class="nume_produs_link" th:text="${item.productName}"></h2>
+						<div class="pret_display">
+								<span th:text="${item.price}"></span> <span>lei</span>
+						</div>
+					</a>
+				</div>
+				<!-- produs -->			
+			</div>
+		</div>
+
+	</div>
+	<button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+	<script th:src="@{/js/backtop.js}"></script>
+
+</body>
+</html>

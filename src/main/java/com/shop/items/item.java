@@ -1,21 +1,29 @@
 package com.shop.items;
 
-public class Item {
+
+public class item{
 	private String id;
 	private String productName;
 	private String description;	
 	private double price;
 	private String imageURL;
-	private String Itemlink;
+	private String itemlink;
+	enum Category {
+		Telefoane,
+		Televizoare,
+		laptopuri
+		}
+	private String categoryitem;
 	
-	public Item(String productName, String description, double price, String imageURL) {
+	public item(String productName, String description, double price, String imageURL, Category category) {
 		super();
 		this.productName = productName;
 		this.description = description;
 		this.price = price;
 		this.imageURL = imageURL;
-		this.Itemlink = productName.replaceAll(" ", "_").replaceAll("-", "").replaceAll(",", "");
-		this.id = Itemlink;
+		this.itemlink = productName.replaceAll(" ", "_").replaceAll("-", "").replaceAll(",", "");
+		this.id = itemlink;
+		this.categoryitem = category.toString();
 	}
 	
 	public String getId() {
@@ -48,17 +56,22 @@ public class Item {
 	public void setImageURL(String imageURL) {
 		this.imageURL = imageURL;
 	}
+
 	public String getItemlink() {
-		return Itemlink;
+		return itemlink;
 	}
+
 	public void setItemlink(String itemlink) {
-		Itemlink = itemlink;
+		this.itemlink = itemlink;
 	}
-	
-	@Override
-	public String toString() {
+
+	public String getCategoryitem() {
+		return categoryitem;
+	}
+
+	public void setCategoryitem(String categoryitem) {
+		this.categoryitem = categoryitem;
+	}
 		
-		return "ProductName= " + productName + "\nDescription= " + description + "\nPrice= " + price + "\nImageURL= " + imageURL + "\nItemLink= " + Itemlink;
-	}
 
 }

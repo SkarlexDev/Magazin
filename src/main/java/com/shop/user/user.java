@@ -1,6 +1,6 @@
 package com.shop.user;
 
-public class User {
+public class user {
 	private long id;
 	private String lastName;
 	private String firstName;
@@ -14,7 +14,7 @@ public class User {
 	
 	
 	
-	public User(String lastName, String firstName, String email) {
+	public user(String lastName, String firstName, String email) {
 		super();
 		this.lastName = lastName;
 		this.firstName = firstName;
