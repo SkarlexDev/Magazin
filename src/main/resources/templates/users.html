@@ -1,0 +1,66 @@
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<style>
+#customers {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  text-align: center;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  background-color: #4CAF50;
+  color: white;
+}
+</style>
+</head>
+<body>
+<center><h1>Users</h1></center>
+
+<table id="customers">
+<tr>
+	<th>Id</th>
+    <th>LastName</th>
+    <th>FirstName</th>
+    <th>Telefon</th>
+    <th>Adresa</th>
+    <th>Oras</th>
+    <th>Judet</th>
+    <th>CodPostal</th>
+    <th>Email</th>
+    <th>Password</th>
+    <th>Link single</th>
+</tr>
+<tr th:each="user: ${usersId}">
+    <td th:text="${user.id}" />
+    <td th:text="${user.lastName}" />
+    <td th:text="${user.firstName}" />
+    <td th:text="${user.telefon}" />
+    <td th:text="${user.adresa}" />
+    <td th:text="${user.oras}" />
+    <td th:text="${user.judet}" />
+    <td th:text="${user.codPostal}" />
+    <td th:text="${user.email}" />
+    <td th:text="${user.password}" /> 
+    <td><a th:href="@{/users/info/{single}(single=${user.email})}">Raw data</a></td>
+     
+</tr>
+</table>
+<br>
+<a th:href="@{/home}">Home</a><br>
+<a th:href="@{/users/info}">Users info</a><br>
+</body>
+</html>

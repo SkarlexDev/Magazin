@@ -1,6 +1,7 @@
 package com.shop.user;
 
-public class user {
+
+public class User {
 	private long id;
 	private String lastName;
 	private String firstName;
@@ -13,12 +14,21 @@ public class user {
 	private String password;
 	
 	
-	
-	public user(String lastName, String firstName, String email) {
+	public User() {
+		super();
+	}
+	public User(String lastName, String firstName, String telefon, String adresa, String oras, String judet,
+			String codPostal, String email, String password) {
 		super();
 		this.lastName = lastName;
 		this.firstName = firstName;
+		this.telefon = telefon;
+		this.adresa = adresa;
+		this.oras = oras;
+		this.judet = judet;
+		this.codPostal = codPostal;
 		this.email = email;
+		this.password = password;
 	}
 	public long getId() {
 		return id;
@@ -79,6 +89,12 @@ public class user {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", lastName=" + lastName + ", firstName=" + firstName + ", telefon=" + telefon
+				+ ", adresa=" + adresa + ", oras=" + oras + ", judet=" + judet + ", codPostal=" + codPostal + ", email="
+				+ email + ", password=" + password + "]";
 	}
 	
 	

@@ -1,7 +1,7 @@
 package com.shop.items;
 
 
-public class item{
+public class Item{
 	private String id;
 	private String productName;
 	private String description;	
@@ -15,7 +15,7 @@ public class item{
 		}
 	private String categoryitem;
 	
-	public item(String productName, String description, double price, String imageURL, Category category) {
+	public Item(String productName, String description, double price, String imageURL, Category category) {
 		super();
 		this.productName = productName;
 		this.description = description;

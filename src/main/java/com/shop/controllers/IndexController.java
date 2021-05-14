@@ -8,20 +8,20 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.shop.items.item;
-import com.shop.items.itemService;
+import com.shop.items.Item;
+import com.shop.items.ItemService;
 
 
 @Controller
-public class indexController {
+public class IndexController {
 	
 	@Autowired
-	private itemService itemService;
+	private ItemService itemService;
 	
 		
 	@RequestMapping(value="/shop/{category}")
 	public String getCategory(@PathVariable String category, Model model) {
-		List<item> items = itemService.getAllItemsByCategory(category);
+		List<Item> items = itemService.getAllItemsByCategory(category);
 		model.addAttribute("items", items);	
 		model.addAttribute("category",category);
 		return "index";	
@@ -29,7 +29,7 @@ public class indexController {
 		
 	@RequestMapping(value={"/home","/"})
 	public String getAllItems(Model model) {		
-		List<item> items = itemService.getAllItems();		
+		List<Item> items = itemService.getAllItems();		
 		model.addAttribute("items", items);		
 		return "index";
 	}
