@@ -6,7 +6,6 @@
   justify-content: space-between;
   margin-right: auto;
   margin-left: auto;
-  background-color;
   padding: 0px;
   text-align: left;
   background: white;
@@ -14,7 +13,7 @@
 .item {
   display: contents;
 }
-.item > a {  
+.itemcontainer {  
   background-color: white;
   width: 10%;
   border: 2px solid #d71440;
@@ -29,6 +28,30 @@
   margin: 30px auto;
 
 }
+.item_options{
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
+	display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button_link {
+  background-color: red;
+  border: none;
+  color: white;
+  padding: 8px 18px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-left: auto;
+  margin-right: auto;
+  cursor: pointer;
+}
+
 .item:nth-child(3n)::after {
   content: '';
   width: 100%;
@@ -40,6 +63,15 @@
   margin-left: auto;
   margin-right: auto;
   display: block;
+}
+.inner_image_add{
+  width: 140px;
+  height: 140px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  margin-top: 50px;
+  margin-bottom: 20px;
 }
 .nume_produs_link{
   font-size: 15px;

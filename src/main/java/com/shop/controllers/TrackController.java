@@ -5,10 +5,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.shop.items.Item;
-import com.shop.items.ItemService;
-import com.shop.user.User;
-import com.shop.user.UserService;
+import com.shop.services.ItemService;
+import com.shop.services.UserService;
+import com.shop.struct.Item;
+import com.shop.struct.User;
 
 import java.util.List;
 
@@ -23,22 +23,27 @@ public class TrackController {
 	@Autowired
 	private ItemService itemService;
 	
-	@RequestMapping(value="/users/info")
+	@RequestMapping("/users/info")
 	public List<User> getAllUsers() {
 		return userService.getAllUsers();
 	}
-	@RequestMapping(value="/users/info/{id}")
+	@RequestMapping("/users/info/{id}")
 	public User getUser(@PathVariable String id) {
 		return userService.getEmail(id); //email
 	}
 	
-	@RequestMapping(value="/items/info")
+	@RequestMapping("/items/info")
 	public List<Item> getallItems() {
 		return itemService.getAllItems();
 	}
 	
-	@RequestMapping(value="/items/info/{id}")
+	@RequestMapping("/items/info/{id}")
 	public Item getItem(@PathVariable String id) {
+		return itemService.getItem(id);
+	}
+	
+	@RequestMapping("/shop/{category}/{id}")
+	public Item getItem2(@PathVariable String category,@PathVariable String id) {
 		return itemService.getItem(id);
 	}
 }

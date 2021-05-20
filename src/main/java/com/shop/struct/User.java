@@ -1,4 +1,4 @@
-package com.shop.user;
+package com.shop.struct;
 
 
 public class User {

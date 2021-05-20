@@ -1,4 +1,4 @@
-package com.shop.items;
+package com.shop.services;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,7 +6,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.shop.items.Item.Category;
+import com.shop.struct.Item;
+import com.shop.struct.Item.Category;
 
 @Service
 public class ItemService {

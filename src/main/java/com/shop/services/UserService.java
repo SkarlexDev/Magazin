@@ -1,19 +1,20 @@
-package com.shop.user;
+package com.shop.services;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
 import org.springframework.stereotype.Service;
+
+import com.shop.struct.User;
+
 
 
 @Service
 public class UserService {
 
 
-	private ArrayList<User> users = new ArrayList<User>();
+	private List<User> users = new ArrayList<User>();
 	
-	public ArrayList<User> getAllUsers() {
+	public List<User> getAllUsers() {
 		return users;
 	}
 	

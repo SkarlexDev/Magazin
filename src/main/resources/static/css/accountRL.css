@@ -4,12 +4,13 @@
 }
 .form-box_R{
 	width: 380px;
-	height: 640px;
+	height: 680px;
 	position: relative;;
 	margin: 5% auto;
 	background: #fff;
 	padding: 5px;
-	overflow: hidden;
+	overflow: scroll;
+	overflow-x: hidden;
 
 }
 .form-box_L{
@@ -48,12 +49,40 @@
 	padding-left: 5px;
 }
 
+.input-field-area{
+	max-width: 100%;
+	min-width: 100%;
+	padding: 10px 0;
+	margin: 5px 0;
+	border-left: 0;
+	border-top: 0;
+	border-right: 0;
+	border-bottom: 1px solid #999;
+	background: transparent;
+	padding-left: 5px;
+	resize: vertical;
+	overflow: auto;
+}
+.input-field-select{
+	width: 100%;
+	padding: 10px 0;
+	margin: 5px 0;
+	border-left: 0;
+	border-top: 0;
+	border-right: 0;
+	border-bottom: 1px solid #999;
+	background: transparent;
+	padding-left: 5px;
+}
+
+
 .submit-btn{
 	width: 85%;
 	padding: 10px 30px;
 	cursor: pointer;
 	display: block;
 	margin: auto;
+	margin-bottom: 20px;
 	background: linear-gradient(to right,#ff105f,#ffad06);
 	border: 0;
 	outline: none;

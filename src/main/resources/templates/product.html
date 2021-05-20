@@ -1,0 +1,52 @@
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>New item</title>
+  <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSH66yvKGCVjCsfbsmaqh2KHN-K2P_JTUdf6g&usqp=CAU">
+  <link rel="stylesheet" th:href="@{/css/accountRL.css}">
+  <link rel="stylesheet" th:href="@{/css/mainStyle.css}">
+
+</head>
+<body>
+  <div class="mainbody">
+		<div class="header">
+			<div class="navbar">
+				<a href="/home">Home</a> 
+				<!-- Hide 1-->
+				<a href="">Account</a>
+				<!-- Hide 2-->
+				<a href="">Cart</a> <a href="">Logout</a>
+				<!-- Hide 2-->
+
+			</div>
+    </div>
+
+    <div class="container">
+      <div class="form-box_R"> 
+      <!-- Test --> 
+      <form id = "register" class="input-group_R" method="post" th:action="@{/register_done}" th:if="${userInfo != null}" th:object="${userInfo}">
+      <input type="text" class="input-field" placeholder="Nume" required th:field="*{lastName}">55
+      </form>  
+      <!-- Test -->    
+        <form id = "register" class="input-group_R" method="post" th:action="@{/product/new}" >
+          <input type="text" class="input-field" placeholder="Nume Produs" required >
+		  <textarea class="input-field-area" placeholder="Descriere" required></textarea>
+          <input type="text" class="input-field" placeholder="Pret" required >
+          <input type="text" class="input-field" placeholder="Imagine(URL)" required >
+          <select class="input-field-select">
+          	<option value="" disabled selected>Categorie</option>
+    		<option value="Telefoane">Telefoane</option>
+    		<option value="Televizoare">Televizoare</option>
+    		<option value="laptopuri">laptopuri</option>
+  		 </select>
+
+          <input type="checkbox" class="check-box" required><span>All the data are correct ?</span>
+          <button type="submit" class="submit-btn">Register</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>

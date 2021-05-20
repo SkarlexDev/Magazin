@@ -1,4 +1,4 @@
-package com.shop.items;
+package com.shop.struct;
 
 
 public class Item{
@@ -8,7 +8,7 @@ public class Item{
 	private double price;
 	private String imageURL;
 	private String itemlink;
-	enum Category {
+	public enum Category {
 		Telefoane,
 		Televizoare,
 		laptopuri

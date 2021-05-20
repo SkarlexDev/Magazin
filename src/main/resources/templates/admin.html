@@ -13,12 +13,8 @@
 		<div class="header">
 			<div class="navbar">
 				<a href="/home">Home</a> 
-				<a href="/login">Login</a>
 				<!-- Hide 1-->
-				<a href="/register">Register</a>
-				<!-- Hide 1-->
-				<a href="profile.html">Account</a>
-				<a href="/admin">(Temp)Admin</a>
+				<a href="">Account</a>
 				<!-- Hide 2-->
 				<a href="">Cart</a> <a href="">Logout</a>
 				<!-- Hide 2-->
@@ -27,40 +23,50 @@
 		</div>
 		<div class="head_elem">
 			<div class="col-container">
-				<div class="vertical_info">
-					<p>Produse</p>
-					<div class="vertical-menu">
-						<a href="/shop/Telefoane">Telefoane</a> 
-						<a href="/shop/Televizoare">Televizoare</a>
-						<a href="/shop/laptopuri">laptopuri</a> 
-						<a href="#">Link 4</a> 
-					</div>
-				</div>
 				<div class="section col">
-					<h2>Welcome to our site</h2>
-					<p th:text="${category}"></p>
+					<h2>Admin Zone</h2>
 				</div>
 			</div>
 		</div>
 		<div class="space_section"></div>
 		<div class="items_list">
 			<div class="container">
+			<!-- produs add -->
+				<div class="item">
+					<a class="itemcontainer" href="/admin/product">
+					
+						<img class="inner_image_add"
+								src="https://icons-for-free.com/iconfiles/png/512/circle+more+plus+icon-1320183136549593898.png"
+								alt="Descriere">
+						
+						<div class="pret_display">
+								<span>New Product</span>
+						</div>
+							
+					</a>
+				</div>
+				<!-- produs -->
 				<!-- produs -->
 				<div th:each="item : ${items}" class="item">
-					<a class="itemcontainer" th:href="@{/shop/{category}/{item}(category=${item.categoryitem}, item=${item.id})}">
+					<div class="itemcontainer" >
 						<img class="inner_image" th:src="${item.imageURL}"
 								alt="Descriere">
 						<h2 class="nume_produs_link" th:text="${item.productName}"></h2>
 						<div class="pret_display">
 								<span th:text="${item.price}"></span> <span>lei</span>
 						</div>
-					</a>
+						<div class="item_options">
+						<a href="#edit" class="button_link">Edit</a>
+						</div>
+					</div>
 				</div>
 				<!-- produs -->			
 			</div>
 		</div>
 
 	</div>
+	
+	
 	<button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
 	<script th:src="@{/js/backtop.js}"></script>
 
