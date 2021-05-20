@@ -22,10 +22,7 @@ public class UserService {
 		user.setId(users.size()+1);
 		users.add(user);
 	}	
-	
-	public ArrayList<User> getUserList(){
-		return null;		
-	}
+
 	
 	public User getEmail(String id) {
 		User user = users.stream()

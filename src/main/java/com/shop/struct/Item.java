@@ -8,22 +8,24 @@ public class Item{
 	private double price;
 	private String imageURL;
 	private String itemlink;
-	public enum Category {
-		Telefoane,
-		Televizoare,
-		laptopuri
-		}
-	private String categoryitem;
+	private String category;
 	
-	public Item(String productName, String description, double price, String imageURL, Category category) {
+	
+	
+	public Item() {
+		super();
+	}
+
+	public Item(String productName, String description, double price, String imageURL, String category) {
 		super();
 		this.productName = productName;
 		this.description = description;
 		this.price = price;
 		this.imageURL = imageURL;
+		this.category = category;
 		this.itemlink = productName.replaceAll(" ", "_").replaceAll("-", "").replaceAll(",", "");
 		this.id = itemlink;
-		this.categoryitem = category.toString();
+
 	}
 	
 	public String getId() {
@@ -65,13 +67,14 @@ public class Item{
 		this.itemlink = itemlink;
 	}
 
-	public String getCategoryitem() {
-		return categoryitem;
+	public String getCategory() {
+		return category;
 	}
 
-	public void setCategoryitem(String categoryitem) {
-		this.categoryitem = categoryitem;
+	public void setCategory(String category) {
+		this.category = category;
 	}
+
 		
 
 }

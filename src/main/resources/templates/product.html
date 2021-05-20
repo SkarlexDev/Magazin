@@ -23,23 +23,25 @@
     </div>
 
     <div class="container">
-      <div class="form-box_R"> 
-      <!-- Test --> 
+      <div class="form-box_R">
+      
+ 	<!-- Test --> 
       <form id = "register" class="input-group_R" method="post" th:action="@{/register_done}" th:if="${userInfo != null}" th:object="${userInfo}">
       <input type="text" class="input-field" placeholder="Nume" required th:field="*{lastName}">55
       </form>  
       <!-- Test -->    
-        <form id = "register" class="input-group_R" method="post" th:action="@{/product/new}" >
-          <input type="text" class="input-field" placeholder="Nume Produs" required >
-		  <textarea class="input-field-area" placeholder="Descriere" required></textarea>
-          <input type="text" class="input-field" placeholder="Pret" required >
-          <input type="text" class="input-field" placeholder="Imagine(URL)" required >
-          <select class="input-field-select">
-          	<option value="" disabled selected>Categorie</option>
-    		<option value="Telefoane">Telefoane</option>
-    		<option value="Televizoare">Televizoare</option>
-    		<option value="laptopuri">laptopuri</option>
+        <form id = "register" class="input-group_R" method="post" th:action="@{newDone}" th:object="${itemInfo}">
+          <input type="text" class="input-field" placeholder="Nume Produs" required th:field="*{productName}">
+          <input type="text" class="input-field" placeholder="Imagine(URL)" required th:field="*{imageURL}">
+           Pret<input type="number" step="0.01" class="input-field" placeholder="Pret" required th:field="*{price}">
+           Categorie<select class="input-field-select" required th:field="*{category}">
+          	<optgroup label="Categorie">
+    			<option value="Telefoane">Telefoane</option>
+    			<option value="Televizoare">Televizoare</option>
+    			<option value="laptopuri">laptopuri</option>
+    		</optgroup>
   		 </select>
+  		 <textarea class="input-field-area" placeholder="Descriere" required th:field="*{description}"></textarea>     
 
           <input type="checkbox" class="check-box" required><span>All the data are correct ?</span>
           <button type="submit" class="submit-btn">Register</button>
