@@ -1,10 +1,11 @@
-.user_info_panel{
+.user_info_panel {
 	width: 100%;
 	background-color: white;
 	padding: 20px;
 	font-size: 20px;
 	padding-bottom: 90px;
 }
+
 .container_profile {
 	width: 50%;
 	display: flex;
@@ -15,41 +16,42 @@
 	text-align: left;
 	padding-bottom: 20px;
 }
-.submit-btn{
+
+.submit-btn-user {
 	width: 55%;
 	padding: 10px 30px;
 	cursor: pointer;
 	display: block;
 	margin: auto;
-	background: linear-gradient(to right,#ff105f,#ffad06);
+	background: linear-gradient(to right, #ff105f, #ffad06);
 	border: 0;
 	outline: none;
 	border-radius: 30px;
 	font-size: 15px;
 }
 
-.input-field{
+.input-field_user {
 	width: 80%;
-	border: ;
 	background: transparent;
-	font-size: 20px;
 	padding-left: 20px;
 	padding-top: 5px;
 	padding-bottom: 5px;
 	display: block;
-    margin : 0 auto;
+	margin: 0 auto;
 }
-.user_inner{
+
+.user_inner {
 	width: 80%;
 	padding-top: 20px;
 	padding-bottom: 20px;
 	margin: 0 auto;
 }
-.user_inner td{
+
+.user_inner td {
 	
 }
 
-.user_inner2{
+.user_inner2 {
 	width: 80%;
 	margin-left: auto;
 	margin-right: auto;
@@ -62,21 +64,24 @@
 	width: 100%;
 	table-layout: fixed; /*Optional*/
 }
+
 .Column {
 	display: table-cell;
 }
 
-.istoric{
+.istoric {
 	width: 100%;
 	margin: 5px auto;
 	border: 1px solid black;
 }
-.istoric p{
+
+.istoric p {
 	font-size: 20px;
 	padding: 10px;
 	text-align: center;
 	font-weight: bold;
 }
+
 .istoric_list {
 	width: 100%;
 	height: 300px;
@@ -84,8 +89,7 @@
 	overflow: overlay;
 }
 
-
-.istoric_list_Row{
+.istoric_list_Row {
 	display: table;
 	width: 100%;
 	margin: 0 auto;
@@ -95,7 +99,7 @@
 	margin: auto;
 }
 
-.istoric_list_Column{
+.istoric_list_Column {
 	display: table-cell;
 	padding-top: 20px;
 	padding-bottom: 20px;

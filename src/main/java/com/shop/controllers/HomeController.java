@@ -21,7 +21,8 @@ public class HomeController {
 	@RequestMapping({"/home","/"})
 	public String getAllItems(Model model) {		
 		List<Item> items = itemService.getAllItems();		
-		model.addAttribute("items", items);		
+		model.addAttribute("items", items);
+		model.addAttribute("pageTitle", "Home");
 		return "index";
 	}
 	@RequestMapping("/shop/{category}")
@@ -29,6 +30,7 @@ public class HomeController {
 		List<Item> items = itemService.getAllItemsByCategory(category);
 		model.addAttribute("items", items);	
 		model.addAttribute("category",category);
+		model.addAttribute("pageTitle", category);
 		return "index";	
 	}
 

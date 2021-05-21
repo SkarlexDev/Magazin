@@ -22,6 +22,7 @@ public class RegisterController {
 	@RequestMapping("/register")
 	public String postUser(Model model) {
 		model.addAttribute("userInfo" , new User());
+		model.addAttribute("pageTitle", "Register");
 		return "register";	
 	}
 	

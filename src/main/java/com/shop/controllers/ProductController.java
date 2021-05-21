@@ -26,7 +26,8 @@ public class ProductController {
 	@GetMapping("/admin")
 	public String adminPanel(Model model) {
 		List<Item> items = itemService.getAllItems();		
-		model.addAttribute("items", items);		
+		model.addAttribute("items", items);
+		model.addAttribute("pageTitle", "Admin");
 		return "admin";
 	}
 		
@@ -34,6 +35,7 @@ public class ProductController {
 	public String newtItem(Model model) {
 		model.addAttribute("itemInfo", new Item());
 		model.addAttribute("method", "new");
+		model.addAttribute("pageTitle", "New item");
 		return "product";
 	}
 	@PostMapping("/admin/product/new")
@@ -48,6 +50,7 @@ public class ProductController {
 		Item item =itemService.getItem(id);
 		model.addAttribute("itemInfo", item);
 		model.addAttribute("method", "edit");
+		model.addAttribute("pageTitle", "Edit");
 		return "product";
 	}
 	

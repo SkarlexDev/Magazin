@@ -1,30 +1,10 @@
-
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Magazin</title>
-	<link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSH66yvKGCVjCsfbsmaqh2KHN-K2P_JTUdf6g&usqp=CAU">
-	<link rel="stylesheet" href="userinfo.css">
-	<link rel="stylesheet" href="mainStyle.css">
-
-</head>
+<html xmlns:th="https://www.thymeleaf.org">
+<head th:replace="fragments/header :: header-css"></head>
 <body>
 	<div class="mainbody">
-		<div class="header">
-			<div class="navbar">
-				<a href="index.html">Home</a>
-				<a href="login.html">Login</a><!-- Hide 1-->
-				<a href="register.html">Register</a><!-- Hide 1-->
-				<a href="profile.html">Account</a><!-- Hide 2-->
-				<a href="">Cart</a>
-				<a href="">Logout</a><!-- Hide 2-->
-
-			</div>       
-		</div>
+	<div th:replace="fragments/header :: header"></div>
 		<div class="head_elem">
-			<div class="navleft">
-			</div>
+			<div class="navleft"></div>
 			<div class="section">
 				<h2>Welcome to your profile |nume|</h2>
 				<p>Here you can edit account details and see order history</p>
@@ -32,9 +12,6 @@
 		</div>
 		<div class="space_section"></div>
 		<div class="items_list">
-			<div class="container">
-
-			</div>
 			<div class="container_profile">
 				<div class="user_info_panel">
 					<div class="user_inner">
@@ -43,39 +20,39 @@
 
 								<tr>
 									<td><b>Nume</b></td>
-									<td><input type="text" class="input-field" value="Pop" required></td>
+									<td><input type="text" class="input-field_user" value="Pop" required></td>
 								</tr>
 								<tr>
 									<td><b>Prenume</b></td>
-									<td><input type="text" class="input-field" value="Marius" required></td>
+									<td><input type="text" class="input-field_user" value="Marius" required></td>
 								</tr>
 								<tr>
 									<td><b>Telefon</b></td>
-									<td><input type="text" class="input-field" value="555 77 855" required></td>
+									<td><input type="text" class="input-field_user" value="555 77 855" required></td>
 								</tr>
 								<tr>
 									<td><b>Email</b></td>
-									<td><input type="email" class="input-field" value="test@gmail.com" required></td>
+									<td><input type="email" class="input-field_user" value="test@gmail.com" required></td>
 								</tr>
 								<tr>
 									<td><b>Adresa</b></td>
-									<td><input type="text" class="input-field" value="Str.1 ap 24" required></td>
+									<td><input type="text" class="input-field_user" value="Str.1 ap 24" required></td>
 								</tr>
 								<tr>
 									<td><b>Oras</b></td>
-									<td><input type="text" class="input-field" value="Oradea" required></td>
+									<td><input type="text" class="input-field_user" value="Oradea" required></td>
 								</tr>
 								<tr>
 									<td><b>Judet</b></td>
-									<td><input type="text" class="input-field" value="Bihor" required></td>
+									<td><input type="text" class="input-field_user" value="Bihor" required></td>
 								</tr>
 								<tr>
 									<td><b>Cod postal</b></td>
-									<td><input type="text" class="input-field" value="410001" required></td> <!-- 6 -->
+									<td><input type="text" class="input-field_user" value="410001" required></td> <!-- 6 -->
 								</tr>						
 							</table>
 							<br>
-							<button type="submit" class="submit-btn">Save</button>
+							<button type="submit" class="submit-btn-user">Save</button>
 						</form>
 					</div>
 					<br>
@@ -166,8 +143,6 @@
 
 
 	</div>
-	<button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
-	<script src="backtop.js">
 	</script>
 </body>
 </html>

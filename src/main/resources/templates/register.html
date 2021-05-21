@@ -1,29 +1,8 @@
 <html xmlns:th="https://www.thymeleaf.org">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Register</title>
-  <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSH66yvKGCVjCsfbsmaqh2KHN-K2P_JTUdf6g&usqp=CAU">
-  <link rel="stylesheet" th:href="@{/css/accountRL.css}">
-  <link rel="stylesheet" th:href="@{/css/mainStyle.css}">
-
-</head>
+<head th:replace="fragments/header :: header-css"></head>
 <body>
   <div class="mainbody">
-		<div class="header">
-			<div class="navbar">
-				<a href="/home">Home</a> 
-				<a href="/login">Login</a>
-				<!-- Hide 1-->
-				<a href="/register">Register</a>
-				<!-- Hide 1-->
-				<a href="profile.html">Account</a>
-				<!-- Hide 2-->
-				<a href="">Cart</a> <a href="">Logout</a>
-				<!-- Hide 2-->      </div>       
-    </div>
-
-    <div class="container">
+	<div th:replace="fragments/header :: header"></div>
       <div class="form-box_R">       
         <form id = "register" class="input-group_R" method="post" th:action="@{/register_done}" th:object="${userInfo}">
           <input type="text" class="input-field" placeholder="Nume" required th:field="*{lastName}">
@@ -37,11 +16,9 @@
           <input type="text" class="input-field" placeholder="Enter password" required th:field="*{password}">
           <input type="checkbox" class="check-box" required><span>I agree terms & conditions</span>
           <button type="submit" class="submit-btn">Register</button>
-          <div class="form_link">Have Account ? <a href="">Login</a></div>
+          <div class="form_link">Have Account ? <a href="/login">Login</a></div>
         </form>
       </div>
-
     </div>
-  </div>
 </body>
 </html>

@@ -1,26 +1,8 @@
 <html xmlns:th="https://www.thymeleaf.org">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Magazin</title>
-<link rel="icon"
-	href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSH66yvKGCVjCsfbsmaqh2KHN-K2P_JTUdf6g&usqp=CAU">
-<link rel="stylesheet" th:href="@{/css/itemMainS.css}">
-<link rel="stylesheet" th:href="@{/css/mainStyle.css}">
-</head>
+<head th:replace="fragments/header :: header-css"></head>
 <body>
 	<div class="mainbody">
-		<div class="header">
-			<div class="navbar">
-				<a href="/home">Home</a> 
-				<!-- Hide 1-->
-				<a href="">Account</a>
-				<!-- Hide 2-->
-				<a href="">Cart</a> <a href="">Logout</a>
-				<!-- Hide 2-->
-
-			</div>
-		</div>
+		<div th:replace="fragments/header :: header"></div>
 		<div class="head_elem">
 			<div class="col-container">
 				<div class="section col">

@@ -1,45 +1,17 @@
-
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Login</title>
-  <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSH66yvKGCVjCsfbsmaqh2KHN-K2P_JTUdf6g&usqp=CAU">
-  <link rel="stylesheet" href="accountRL.css">
-  <link rel="stylesheet" href="mainStyle.css">
-
-</head>
+<html xmlns:th="https://www.thymeleaf.org">
+<head th:replace="fragments/header :: header-css"></head>
 <body>
-  <div class="mainbody">
-    <div class="header">
-      <div class="navbar">
-        <a href="/">Home</a>
-        <a href="login.html">Login</a><!-- Hide 1-->
-        <a href="register.html">Register</a><!-- Hide 1-->
-        <a href="profile.html">Account</a><!-- Hide 2-->
-        <a href="">Cart</a>
-        <a href="">Logout</a><!-- Hide 2-->
-
-      </div>       
-    </div>
-
-
-    <div class="container">
-      <div class="form-box_L">
-        <form id = "login" class="input-group_L">
-          <input type="text" class="input-field" placeholder="User id" required>
-          <input type="text" class="input-field" placeholder="Enter password" required>
-          <input type="checkbox" class="check-box"><span>Remember password</span>
-          <button type="submit" class="submit-btn">Log In</button>
-          <div class="form_link">No Account ? <a href="register.html">Register</a></div>
-        </form>
-
-      </div>
-
-
-
-
-    </div>
-  </div>
+	<div class="mainbody">
+		<div th:replace="fragments/header :: header"></div>
+		<div class="form-box_L">
+			<form id = "login" class="input-group_L">
+		         <input type="text" class="input-field" placeholder="User id" required>
+		         <input type="text" class="input-field" placeholder="Enter password" required>
+		         <input type="checkbox" class="check-box"><span>Remember password</span>
+		         <button type="submit" class="submit-btn">Log In</button>
+		         <div class="form_link">No Account ? <a href="/register">Register</a></div>
+			</form>
+		</div>
+  	</div>
 </body>
 </html>
