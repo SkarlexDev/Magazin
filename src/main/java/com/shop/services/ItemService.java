@@ -80,6 +80,32 @@ public class ItemService {
 	public void setItem(Item item) {
 		items.add(item);
 	}
+	
+	public void edit(String id, Item it) {
+		Item item = items.stream()
+				.filter(t -> id.equals(t.getId()))
+				.findFirst()
+				.orElse(null);
+		item.setProductName(it.getProductName());
+		item.setDescription(it.getDescription());
+		item.setImageURL(it.getImageURL());
+		item.setPrice(it.getPrice());
+		item.setCategory(it.getCategory());
+		item.setId(it.getProductName().replaceAll(" ", "_").replaceAll("-", "").replaceAll(",", "").replaceAll("/", "."));
+	}
+	
+	public void delete(String id) {
+		List<Object> toRemove = new ArrayList<Object>();
+		for(Item item : items) {
+			if(item.getId().equals(id)) {				
+				toRemove.add(item);
+				System.out.println("Add to delete");
+			}
+		}
+		items.removeAll(toRemove);
+		System.out.println("Deleted");
+			  
+	}
 
 
 

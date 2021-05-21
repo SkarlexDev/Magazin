@@ -56,7 +56,8 @@
 								<span th:text="${item.price}"></span> <span>lei</span>
 						</div>
 						<div class="item_options">
-						<a href="#edit" class="button_link">Edit</a>
+						<a th:href="@{/admin/product/edit/{id}(id=${item.id})}" class="button_link">Edit</a>
+						<a th:href="@{/admin/product/delete/{id}(id=${item.id})}" class="button_link">Delete</a>
 						</div>
 					</div>
 				</div>

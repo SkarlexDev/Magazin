@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -30,30 +31,36 @@ public class ProductController {
 	}
 		
 	@RequestMapping("/admin/product/new")
-	public String postItem(Model model) {
+	public String newtItem(Model model) {
 		model.addAttribute("itemInfo", new Item());
+		model.addAttribute("method", "new");
 		return "product";
 	}
-	@PostMapping("/admin/product/newDone")
-	public String addItem(@ModelAttribute Item itemInfo , Model model) {
-		System.out.println(itemInfo);
+	@PostMapping("/admin/product/new")
+	public String postItem(@ModelAttribute Item itemInfo , Model model) {
+		itemInfo.setId(itemInfo.getProductName().replaceAll(" ", "_").replaceAll("-", "").replaceAll(",", "").replaceAll("/", "."));
 		itemService.setItem(itemInfo);
 		return "redirect:/admin";
 	}
 	
-	@GetMapping("admin/product/edit/1")
-	public String editProduct(Model model) {
+	@GetMapping("admin/product/edit/{id}")
+	public String editProduct(@PathVariable String id, Model model) {
+		Item item =itemService.getItem(id);
+		model.addAttribute("itemInfo", item);
+		model.addAttribute("method", "edit");
 		return "product";
 	}
 	
 	@PostMapping("admin/product/edit/{id}")
-	public String editProduct() {
-		return "product";
+	public String postEditProduct(@PathVariable String id, Model model, @ModelAttribute("itemInfo") Item itemInfo) {
+		itemService.edit(id, itemInfo);
+		return "redirect:/admin";
 	}
 	
-	@PostMapping("/product/delete/{id}")
-	public String deleteProduct(){
-		return "redirect:/home";
+	@GetMapping("admin/product/delete/{id}")
+	public String deleteProduct(@PathVariable String id){
+		itemService.delete(id);
+		return "redirect:/admin";
 	}
 	
 }

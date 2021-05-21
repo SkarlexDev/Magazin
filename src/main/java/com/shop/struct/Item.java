@@ -23,9 +23,6 @@ public class Item{
 		this.price = price;
 		this.imageURL = imageURL;
 		this.category = category;
-		this.itemlink = productName.replaceAll(" ", "_").replaceAll("-", "").replaceAll(",", "");
-		this.id = itemlink;
-
 	}
 	
 	public String getId() {
@@ -73,6 +70,12 @@ public class Item{
 
 	public void setCategory(String category) {
 		this.category = category;
+	}
+
+	@Override
+	public String toString() {
+		return "Item [id=" + id + ", productName=" + productName + ", description=" + description + ", price=" + price
+				+ ", imageURL=" + imageURL + ", itemlink=" + itemlink + ", category=" + category + "]";
 	}
 
 		
