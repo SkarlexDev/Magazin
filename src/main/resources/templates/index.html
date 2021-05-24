@@ -26,7 +26,7 @@
 			<div class="container">
 				<!-- produs -->
 				<div th:each="item : ${items}" class="item">
-					<a class="itemcontainer" th:href="@{/shop/{category}/{item}(category=${item.category}, item=${item.id})}">
+					<a class="itemcontainer" th:href="@{/shop/{category}/{item}(category=${item.category}, item=${item.itemlink})}">
 						<img class="inner_image" th:src="${item.imageURL}"
 								alt="Descriere">
 						<h2 class="nume_produs_link" th:text="${item.productName}"></h2>

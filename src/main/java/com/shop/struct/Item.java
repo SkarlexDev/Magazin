@@ -1,13 +1,22 @@
 package com.shop.struct;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+@Entity
 public class Item{
-	private String id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+	@Column(unique=true)
+	private String itemlink;
 	private String productName;
 	private String description;	
 	private double price;
 	private String imageURL;
-	private String itemlink;
 	private String category;
 	
 	
@@ -25,10 +34,10 @@ public class Item{
 		this.category = category;
 	}
 	
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getProductName() {
@@ -70,12 +79,6 @@ public class Item{
 
 	public void setCategory(String category) {
 		this.category = category;
-	}
-
-	@Override
-	public String toString() {
-		return "Item [id=" + id + ", productName=" + productName + ", description=" + description + ", price=" + price
-				+ ", imageURL=" + imageURL + ", itemlink=" + itemlink + ", category=" + category + "]";
 	}
 
 		

@@ -22,6 +22,9 @@ body {
 	font: 14px Arial, sans-serif;
 	margin: 0px;
 }
+.error_msg{
+	color: red;
+}
 
 .header {
 	height: 50px;

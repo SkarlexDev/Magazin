@@ -30,7 +30,7 @@ public class RegisterController {
 	public String addUser(@ModelAttribute User userInfo , Model model) {
 		System.out.println(userInfo);
 		//userService.setUser(userInfo);
-		userService.setUser(userInfo);
+		userService.addUser(userInfo);
 		return "redirect:users";
 	}
 	// Temp

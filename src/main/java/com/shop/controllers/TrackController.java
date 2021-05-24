@@ -11,6 +11,7 @@ import com.shop.struct.Item;
 import com.shop.struct.User;
 
 import java.util.List;
+import java.util.Optional;
 
 
 
@@ -28,22 +29,22 @@ public class TrackController {
 		return userService.getAllUsers();
 	}
 	@RequestMapping("/users/info/{id}")
-	public User getUser(@PathVariable String id) {
-		return userService.getEmail(id); //email
+	public Optional<User> getUser(@PathVariable Long id) {
+		return userService.getUserId(id);
 	}
 	
 	@RequestMapping("/items/info")
 	public List<Item> getallItems() {
-		return itemService.getAllItems();
+		return itemService.findAll();
 	}
 	
 	@RequestMapping("/items/info/{id}")
-	public Item getItem(@PathVariable String id) {
-		return itemService.getItem(id);
+	public Optional<Item> getItem(@PathVariable Long id) {
+		return itemService.findById(id);
 	}
-	
-	@RequestMapping("/shop/{category}/{id}")
-	public Item getItem2(@PathVariable String category,@PathVariable String id) {
-		return itemService.getItem(id);
+	@RequestMapping("/shop/{category}/{itemlink}")
+	public Item findById(@PathVariable String category,@PathVariable String itemlink) {
+
+		return itemService.findByLink(itemlink);
 	}
 }

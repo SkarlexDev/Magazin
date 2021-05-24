@@ -1,6 +1,7 @@
 package com.shop.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,11 +10,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+
 
 import com.shop.services.ItemService;
 import com.shop.struct.Item;
-import com.shop.struct.User;
 
 @Controller
 public class ProductController {
@@ -25,13 +25,13 @@ public class ProductController {
 	
 	@GetMapping("/admin")
 	public String adminPanel(Model model) {
-		List<Item> items = itemService.getAllItems();		
+		List<Item> items = itemService.findAll();		
 		model.addAttribute("items", items);
 		model.addAttribute("pageTitle", "Admin");
 		return "admin";
 	}
 		
-	@RequestMapping("/admin/product/new")
+	@GetMapping("/admin/product/new")
 	public String newtItem(Model model) {
 		model.addAttribute("itemInfo", new Item());
 		model.addAttribute("method", "new");
@@ -40,14 +40,26 @@ public class ProductController {
 	}
 	@PostMapping("/admin/product/new")
 	public String postItem(@ModelAttribute Item itemInfo , Model model) {
-		itemInfo.setId(itemInfo.getProductName().replaceAll(" ", "_").replaceAll("-", "").replaceAll(",", "").replaceAll("/", "."));
-		itemService.setItem(itemInfo);
-		return "redirect:/admin";
+		try {
+			itemInfo.setItemlink(itemInfo.getProductName().replaceAll(" ", "_").replaceAll("-", "").replaceAll(",", "").replaceAll("/", "."));
+			itemService.addItem(itemInfo);
+			return "redirect:/admin";
+			
+		} catch (Exception e) {
+			model.addAttribute("itemInfo", new Item());
+			model.addAttribute("method", "new");
+			model.addAttribute("error","true");
+			model.addAttribute("pageTitle", "New item");
+			return "product";
+		}
+		
 	}
 	
 	@GetMapping("admin/product/edit/{id}")
-	public String editProduct(@PathVariable String id, Model model) {
-		Item item =itemService.getItem(id);
+	public String editProduct(@PathVariable Long id, Model model) {
+		Optional<Item> itemCall =itemService.findById(id);
+		Item item = itemCall.get();
+		System.out.println(item);
 		model.addAttribute("itemInfo", item);
 		model.addAttribute("method", "edit");
 		model.addAttribute("pageTitle", "Edit");
@@ -55,14 +67,26 @@ public class ProductController {
 	}
 	
 	@PostMapping("admin/product/edit/{id}")
-	public String postEditProduct(@PathVariable String id, Model model, @ModelAttribute("itemInfo") Item itemInfo) {
-		itemService.edit(id, itemInfo);
-		return "redirect:/admin";
+	public String postEditProduct(@PathVariable Long id, Model model, @ModelAttribute("itemInfo") Item itemInfo) {
+		try {
+			itemInfo.setItemlink(itemInfo.getProductName().replaceAll(" ", "_").replaceAll("-", "").replaceAll(",", "").replaceAll("/", "."));
+			itemService.editItem(itemInfo);
+			return "redirect:/admin";			
+		} catch (Exception e) {
+			Optional<Item> itemCall =itemService.findById(id);
+			Item item = itemCall.get();
+			System.out.println(item);
+			model.addAttribute("itemInfo", item);
+			model.addAttribute("method", "edit");
+			model.addAttribute("pageTitle", "Edit");
+			model.addAttribute("error","true");
+			return "product";
+		}
 	}
 	
 	@GetMapping("admin/product/delete/{id}")
-	public String deleteProduct(@PathVariable String id){
-		itemService.delete(id);
+	public String deleteItem(@PathVariable Long id){
+		itemService.deleteItem(id);
 		return "redirect:/admin";
 	}
 	
