@@ -1,5 +1,6 @@
 package com.shop.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,11 +40,25 @@ public class ProductController {
 		return "product";
 	}
 	@PostMapping("/admin/product/new")
-	public String postItem(@ModelAttribute Item itemInfo , Model model) {
+	public String postItem(@ModelAttribute Item itemInfo , Model model) throws Exception {
 		try {
+			boolean allowpost = true;
 			itemInfo.setItemlink(itemInfo.getProductName().replaceAll(" ", "_").replaceAll("-", "").replaceAll(",", "").replaceAll("/", "."));
-			itemService.addItem(itemInfo);
-			return "redirect:/admin";
+			List<Item> items = new ArrayList<Item>();
+			items.addAll(itemService.findAll());
+			for(Item item:items) {
+				if(item.getItemlink().equals(itemInfo.getItemlink())) {
+					allowpost = false;
+				}
+			}
+			System.out.println(allowpost);
+			
+			if(allowpost){
+				itemService.addItem(itemInfo);
+				return "redirect:/admin";
+			}else {
+				throw new Exception();
+			}			
 			
 		} catch (Exception e) {
 			model.addAttribute("itemInfo", new Item());

@@ -25,6 +25,10 @@ body {
 .error_msg{
 	color: red;
 }
+.center_bold{
+	font-weight: bold;
+	text-align: center;
+}
 
 .header {
 	height: 50px;
