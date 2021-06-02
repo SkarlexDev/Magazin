@@ -3,6 +3,7 @@
 </head>
 <body>
 	<div class="mainbody">
+	<div th:insert="fragments/cart :: cart"></div>
 		<div th:replace="fragments/header :: header"></div>
 		<div class="head_elem">
 			<div class="col-container">
@@ -20,18 +21,19 @@
 					<p th:text="${category}"></p>
 				</div>
 			</div>
+			
 		</div>
 		<div class="space_section"></div>
 		<div class="items_list">
 			<div class="container">
 				<!-- produs -->
-				<div th:each="item : ${items}" class="item">
-					<a class="itemcontainer" th:href="@{/shop/{category}/{item}(category=${item.category}, item=${item.itemlink})}">
-						<img class="inner_image" th:src="${item.imageURL}"
+				<div th:each="product : ${products}" class="item">
+					<a class="itemcontainer" th:href="@{/shop/{category}/{product}(category=${product.category}, product=${product.productlink})}">
+						<img class="inner_image" th:src="${product.imageURL}"
 								alt="Descriere">
-						<h2 class="nume_produs_link" th:text="${item.productName}"></h2>
+						<h2 class="nume_produs_link" th:text="${product.productName}"></h2>
 						<div class="pret_display">
-								<span th:text="${item.price}"></span> <span>lei</span>
+								<span th:text="${product.price}"></span> <span>lei</span>
 						</div>
 					</a>
 				</div>

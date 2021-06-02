@@ -7,7 +7,7 @@
 
 		<div class="form-box_R">
 			<form id="register" class="input-group_R" method="post"
-				th:object="${itemInfo}">
+				th:object="${productInfo}">
 				<input type="text" class="input-field" placeholder="Nume Produs" required th:field="*{productName}"> 
 				<p th:if="${error} == 'true'" class="error_msg"> Numele Produsului exista deja !</p>
 				<input type="text" class="input-field" placeholder="Imagine(URL)" required th:field="*{imageURL}"> 

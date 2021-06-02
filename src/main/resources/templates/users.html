@@ -55,12 +55,12 @@
     <td th:text="${user.codPostal}" />
     <td th:text="${user.email}" />
     <td th:text="${user.password}" /> 
-    <td><a th:href="@{/users/info/{single}(single=${user.id})}">Raw data</a></td>
+    <td><a th:href="@{/api/users/{single}(single=${user.id})}">Raw data</a></td>
      
 </tr>
 </table>
 <br>
 <a th:href="@{/home}">Home</a><br>
-<a th:href="@{/users/info}">Users info</a><br>
+<a th:href="@{/api/users}">Users info</a><br>
 </body>
 </html>

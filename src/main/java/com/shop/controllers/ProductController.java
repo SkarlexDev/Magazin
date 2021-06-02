@@ -12,59 +12,58 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-
-import com.shop.services.ItemService;
-import com.shop.struct.Item;
+import com.shop.services.ProductService;
+import com.shop.struct.Product;
 
 @Controller
 public class ProductController {
 	
 	@Autowired
-	private ItemService itemService;
-	Item item;
+	private ProductService productService;
+	Product product;
 	
 	
 	@GetMapping("/admin")
 	public String adminPanel(Model model) {
-		List<Item> items = itemService.findAll();		
-		model.addAttribute("items", items);
+		List<Product> products = productService.findAll();		
+		model.addAttribute("products", products);
 		model.addAttribute("pageTitle", "Admin");
 		return "admin";
 	}
 		
 	@GetMapping("/admin/product/new")
-	public String newtItem(Model model) {
-		model.addAttribute("itemInfo", new Item());
+	public String newtproduct(Model model) {
+		model.addAttribute("productInfo", new Product());
 		model.addAttribute("method", "new");
-		model.addAttribute("pageTitle", "New item");
+		model.addAttribute("pageTitle", "New product");
 		return "product";
 	}
 	@PostMapping("/admin/product/new")
-	public String postItem(@ModelAttribute Item itemInfo , Model model) throws Exception {
+	public String postproduct(@ModelAttribute Product productInfo , Model model) throws Exception {
 		try {
 			boolean allowpost = true;
-			itemInfo.setItemlink(itemInfo.getProductName().replaceAll(" ", "_").replaceAll("-", "").replaceAll(",", "").replaceAll("/", "."));
-			List<Item> items = new ArrayList<Item>();
-			items.addAll(itemService.findAll());
-			for(Item item:items) {
-				if(item.getItemlink().equals(itemInfo.getItemlink())) {
+			productInfo.setProductlink(productInfo.getProductName().replaceAll(" ", "_").replaceAll("-", "").replaceAll(",", "").replaceAll("/", "."));
+			List<Product> products = new ArrayList<Product>();
+			products.addAll(productService.findAll());
+			for(Product product:products) {
+				if(product.getProductlink().equals(productInfo.getProductlink())) {
 					allowpost = false;
 				}
 			}
 			System.out.println(allowpost);
 			
 			if(allowpost){
-				itemService.addItem(itemInfo);
+				productService.addproduct(productInfo);
 				return "redirect:/admin";
 			}else {
 				throw new Exception();
 			}			
 			
 		} catch (Exception e) {
-			model.addAttribute("itemInfo", new Item());
+			model.addAttribute("productInfo", new Product());
 			model.addAttribute("method", "new");
 			model.addAttribute("error","true");
-			model.addAttribute("pageTitle", "New item");
+			model.addAttribute("pageTitle", "New product");
 			return "product";
 		}
 		
@@ -72,26 +71,26 @@ public class ProductController {
 	
 	@GetMapping("admin/product/edit/{id}")
 	public String editProduct(@PathVariable Long id, Model model) {
-		Optional<Item> itemCall =itemService.findById(id);
-		Item item = itemCall.get();
-		System.out.println(item);
-		model.addAttribute("itemInfo", item);
+		Optional<Product> productCall =productService.findById(id);
+		Product product = productCall.get();
+		System.out.println(product);
+		model.addAttribute("productInfo", product);
 		model.addAttribute("method", "edit");
 		model.addAttribute("pageTitle", "Edit");
 		return "product";
 	}
 	
 	@PostMapping("admin/product/edit/{id}")
-	public String postEditProduct(@PathVariable Long id, Model model, @ModelAttribute("itemInfo") Item itemInfo) {
+	public String postEditProduct(@PathVariable Long id, Model model, @ModelAttribute("productInfo") Product productInfo) {
 		try {
-			itemInfo.setItemlink(itemInfo.getProductName().replaceAll(" ", "_").replaceAll("-", "").replaceAll(",", "").replaceAll("/", "."));
-			itemService.editItem(itemInfo);
+			productInfo.setProductlink(productInfo.getProductName().replaceAll(" ", "_").replaceAll("-", "").replaceAll(",", "").replaceAll("/", "."));
+			productService.editproduct(productInfo);
 			return "redirect:/admin";			
 		} catch (Exception e) {
-			Optional<Item> itemCall =itemService.findById(id);
-			Item item = itemCall.get();
-			System.out.println(item);
-			model.addAttribute("itemInfo", item);
+			Optional<Product> productCall =productService.findById(id);
+			Product product = productCall.get();
+			System.out.println(product);
+			model.addAttribute("productInfo", product);
 			model.addAttribute("method", "edit");
 			model.addAttribute("pageTitle", "Edit");
 			model.addAttribute("error","true");
@@ -100,8 +99,8 @@ public class ProductController {
 	}
 	
 	@GetMapping("admin/product/delete/{id}")
-	public String deleteItem(@PathVariable Long id){
-		itemService.deleteItem(id);
+	public String deleteproduct(@PathVariable Long id){
+		productService.deleteproduct(id);
 		return "redirect:/admin";
 	}
 	

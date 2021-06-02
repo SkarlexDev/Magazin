@@ -1,0 +1,39 @@
+<html xmlns:th="https://www.thymeleaf.org">
+<head th:replace="fragments/header :: header-css"></head>
+<body>
+	<div class="mainbody">
+		<div th:replace="fragments/header :: header"></div>
+		<div th:object="${productInfo}">
+			<div class="head_elem">
+				<div class="col-container">
+					<div class="section col">
+						<h2 th:text="${productInfo.productName}"></h2>
+					</div>
+				</div>
+			</div>
+			<div class="space_section"></div>
+			<div class="container_item_page">
+				<div>
+					<div class="leftDiv">
+						<img class="inner_image_page" th:src="${productInfo.imageURL}" alt="Descriere">
+					</div>
+					<div class="rightDiv">
+						<div class="right_item_data">
+							<span th:text="${productInfo.price}"></span> <span>lei</span> 
+								<a th:href="@{/cart/add/{product}(product=${productInfo.productlink})}">
+									<button>Add to Cart</button>
+								</a>
+						</div>
+					</div>
+				</div>
+				<div class="space_section"></div>
+				<div class="space_null"></div>
+				<div class="description_item">
+					<h2>Descriere</h2>
+					<p th:text="${productInfo.description}"></p>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

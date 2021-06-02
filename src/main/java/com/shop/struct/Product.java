@@ -8,71 +8,78 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Item_TBL")
-public class Item{
+
+@Table(name = "Product")
+public class Product {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(unique=true)
-	private String itemlink;
-	private String productName;
-	private String description;	
-	private double price;
-	private String imageURL;
-	private String category;
-	
-	
-	
-	public Item() {
-		super();
-	}
 
-	public Item(String productName, String description, double price, String imageURL, String category) {
-		super();
-		this.productName = productName;
-		this.description = description;
-		this.price = price;
-		this.imageURL = imageURL;
-		this.category = category;
-	}
-	
+	@Column(name = "productlink", unique = true)
+	private String productlink;
+
+	@Column(name = "productName")
+	private String productName;
+
+	@Column(name = "description", columnDefinition = "LONGTEXT")
+	private String description;
+
+	@Column(name = "price")
+	private double price;
+
+	@Column(name = "imageURL")
+	private String imageURL;
+
+	@Column(name = "category")
+	private String category;
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	public String getProductlink() {
+		return productlink;
+	}
+
+	public void setProductlink(String productlink) {
+		this.productlink = productlink;
+	}
+
 	public String getProductName() {
 		return productName;
 	}
+
 	public void setProductName(String productName) {
 		this.productName = productName;
 	}
+
 	public String getDescription() {
 		return description;
 	}
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
 	public double getPrice() {
 		return price;
 	}
+
 	public void setPrice(double price) {
 		this.price = price;
 	}
+
 	public String getImageURL() {
 		return imageURL;
 	}
+
 	public void setImageURL(String imageURL) {
 		this.imageURL = imageURL;
-	}
-
-	public String getItemlink() {
-		return itemlink;
-	}
-
-	public void setItemlink(String itemlink) {
-		this.itemlink = itemlink;
 	}
 
 	public String getCategory() {
@@ -83,6 +90,11 @@ public class Item{
 		this.category = category;
 	}
 
-		
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", productlink=" + productlink + ", productName=" + productName + ", description="
+				+ description + ", price=" + price + ", imageURL=" + imageURL + ", category=" + category + "]";
+	}
 
+	
 }

@@ -184,6 +184,20 @@ body {
 	border-radius: 4px;
 }
 
+.container_item {
+	margin-top: 20px;
+	width: 50%;
+	display: flex;
+	flex-flow: row wrap;
+	align-content: space-between;
+	justify-content: space-between;
+	margin-right: auto;
+	margin-left: auto;
+	padding: 0;
+	text-align: left;
+	background: white;
+}
+
 #myBtn:hover {
 	background-color: #555;
 }
