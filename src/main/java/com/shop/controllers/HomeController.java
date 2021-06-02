@@ -26,6 +26,7 @@ public class HomeController {
 		List<Product> cart_products = cartService.getAllproducts();
 		model.addAttribute("cart_products", cart_products);
 		model.addAttribute("totalprice", cartService.totalPrice);
+		model.addAttribute("checkMap", cartService.productCart);
 		model.addAttribute("removeid", "da");
 		return "index";
 	}
@@ -35,7 +36,7 @@ public class HomeController {
 		List<Product> products = productService.findAllByCategory(category);
 		model.addAttribute("products", products);	
 		model.addAttribute("category",category);
-		model.addAttribute("pageTitle", category);
+		model.addAttribute("pageTitle", category);		
 		return "index";	
 	}
 
@@ -57,8 +58,8 @@ public class HomeController {
 	}
 	
 	@GetMapping("/cart/remove/{id}")
-	public String removeFromCart(@PathVariable String id, Model model) {
-		// TODO implementare
+	public String removeFromCart(@PathVariable int id, Model model) {
+		cartService.delete(id);
 		return "redirect:/home";
 	}
 	

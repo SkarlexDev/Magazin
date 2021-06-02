@@ -12,27 +12,34 @@
 			<p>Total price:</p>
 			<p th:text="${totalprice}"></p>
 		</div>
-
+		<!--  
+		<table>
+		<tr th:each="entry : ${checkMap}">
+		<td th:text="${entry.key}"></td>
+		<td th:text="${entry.value.price}"></td>
+		</tr>
+		</table>
+		-->
 		<div class="shopping-cart-content">
-			<div th:each="cp : ${cart_products}">
+			<div th:each="entry : ${checkMap}">
 				<!-- Product #1 -->
 				<div class="item-cart">
 					<div class="cancel-itemcart">
-					<a th:href="@{/cart/remove/{id}(id=${removeid})}">&#x2716;</a></div>
-					<a th:href="@{/shop/{category}/{product}(category=${cp.category}, product=${cp.productlink})}">
+					<a th:href="@{/cart/remove/{id}(id=${entry.key})}">&#x2716;</a></div>
+					<a th:href="@{/shop/{category}/{product}(category=${entry.value.category}, product=${entry.value.productlink})}">
 						<div class="imagecart">
-							<img th:src="${cp.imageURL}" alt="" />
+							<img th:src="${entry.value.imageURL}" alt="" />
 						</div>
 					</a>
 					<div class="description">
 						<a
-							th:href="@{/shop/{category}/{product}(category=${cp.category}, product=${cp.productlink})}">
-							<span th:text="${cp.productName}"></span>
+							th:href="@{/shop/{category}/{product}(category=${entry.value.category}, product=${entry.value.productlink})}">
+							<span th:text="${entry.value.productName}"></span>
 						</a>
 					</div>
 
 					<div class="total-price">
-						<span th:text="${cp.price}"></span> <span>lei</span>
+						<span th:text="${entry.value.price}"></span> <span>lei</span>
 					</div>
 				</div>
 
