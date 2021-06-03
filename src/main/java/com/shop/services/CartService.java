@@ -55,6 +55,10 @@ public class CartService {
 		totalPrice = totalPrice.subtract(new BigDecimal(price));
 		products.removeAll(toRemove);
 		productCart.remove(id);
+		
+		if(productCart.size()==0) {
+			sizemap=0;
+		}
 		System.out.println(productCart);
 		System.out.println(products);
 

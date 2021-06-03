@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org"
+xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head th:fragment="header-css">
 	<meta charset="utf-8">
@@ -17,15 +18,15 @@
 	<div th:fragment="header" class="header">
 		<div class="navbar">
 			<a href="/home">Home</a> 
-			<a href="/login">Login</a>
-			<!-- Hide 1-->
-			<a href="/register">Register</a>
-			<!-- Hide 1-->
-			<a href="/profile">Account</a> 
-			<a href="/admin">(Temp)Admin</a>
-			<!-- Hide 2-->
-			<a href="">Cart</a> <a href="">Logout</a>
-			<!-- Hide 2-->
+			<a sec:authorize="isAnonymous()" href="/login">Login</a>
+			<a sec:authorize="isAnonymous()" href="/register">Register</a>
+			<a sec:authorize="isAuthenticated()" href="/profile">Account</a> 
+			<a sec:authorize="hasAnyAuthority('CREATOR', 'ADMIN')" href="/admin">(Temp)Admin</a>
+			<form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post" id="logout">
+    			<a onclick="document.getElementById('logout').submit()">Logout</a>
+    			<!-- Users with disabled JavaScript won't be able to submit the form  -->
+			</form>
+
 
 		</div>
 	</div>

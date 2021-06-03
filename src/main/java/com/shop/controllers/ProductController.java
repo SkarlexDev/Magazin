@@ -20,9 +20,8 @@ public class ProductController {
 	
 	@Autowired
 	private ProductService productService;
-	Product product;
 	
-	
+
 	@GetMapping("/admin")
 	public String adminPanel(Model model) {
 		List<Product> products = productService.findAll();		
@@ -50,7 +49,6 @@ public class ProductController {
 					allowpost = false;
 				}
 			}
-			System.out.println(allowpost);
 			
 			if(allowpost){
 				productService.addproduct(productInfo);

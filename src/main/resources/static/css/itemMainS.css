@@ -114,19 +114,28 @@
 	float: right;
 	margin-right: 5%;
 }	
+.top-item-data{
+	display: block;
+	justify-content:space-between;
+
+	
+}
 .right_item_data{
 	padding: 0;
 	text-align: center;
 	font-size: 30px;
 	color: red;
 	margin-top: 70%;
+	background-color: white;
+	border: 1px solid black;
+
 }
 .right_item_data button {
   border: none;
   outline: 0;
   padding: 12px;
   color: white;
-  background-color: #000;
+  background-color: red;
   text-align: center;
   cursor: pointer;
   width: 100%;

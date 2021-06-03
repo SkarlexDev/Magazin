@@ -10,7 +10,6 @@ import java.util.List;
 public interface ProductRepository extends CrudRepository<Product, Long>{
 
 		List<Product> findAllByCategory(String category);
-
 		Product findByproductlink(String productlink);
 
 }

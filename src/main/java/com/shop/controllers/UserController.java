@@ -43,7 +43,8 @@ public class UserController {
 	public String addUser(@ModelAttribute User userInfo , Model model) {
 		System.out.println(userInfo);
 		userService.addUser(userInfo);
-		return "redirect:users";
+		return "redirect:/home";
+		//return "redirect:users";
 	}
 	// Temp
 	@RequestMapping("/users")

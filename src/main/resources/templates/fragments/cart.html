@@ -1,54 +1,50 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org"
+xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head th:fragment="cartheader-css">
 <style type="text/css">
 </style>
 </head>
 <body>
-	<div th:fragment="cart" class="shopping-cart">
-		<!-- Title -->
-		<div class="title">
-			<h3>Shopping Cart</h3>
-			<p>Total price:</p>
-			<p th:text="${totalprice}"></p>
-		</div>
-		<!--  
-		<table>
-		<tr th:each="entry : ${checkMap}">
-		<td th:text="${entry.key}"></td>
-		<td th:text="${entry.value.price}"></td>
-		</tr>
-		</table>
-		-->
-		<div class="shopping-cart-content">
-			<div th:each="entry : ${checkMap}">
-				<!-- Product #1 -->
-				<div class="item-cart">
-					<div class="cancel-itemcart">
-					<a th:href="@{/cart/remove/{id}(id=${entry.key})}">&#x2716;</a></div>
-					<a th:href="@{/shop/{category}/{product}(category=${entry.value.category}, product=${entry.value.productlink})}">
-						<div class="imagecart">
-							<img th:src="${entry.value.imageURL}" alt="" />
+	<div sec:authorize="isAuthenticated()" th:fragment="cart" class="shopping-cart">
+			<!-- Title -->
+			<div class="title">
+				<h3>Shopping Cart</h3>
+				<p>Total price:</p>
+				<p th:text="${totalprice}"></p>
+			</div>
+			<div class="shopping-cart-content">
+				<div th:each="entry : ${checkMap}">
+					<!-- Product  -->
+					<div class="item-cart">
+						<div class="cancel-itemcart">
+							<a th:href="@{/cart/remove/{id}(id=${entry.key})}">&#x2716;</a>
 						</div>
-					</a>
-					<div class="description">
 						<a
 							th:href="@{/shop/{category}/{product}(category=${entry.value.category}, product=${entry.value.productlink})}">
-							<span th:text="${entry.value.productName}"></span>
+							<div class="imagecart">
+								<img th:src="${entry.value.imageURL}" alt="" />
+							</div>
 						</a>
+						<div class="description">
+							<a
+								th:href="@{/shop/{category}/{product}(category=${entry.value.category}, product=${entry.value.productlink})}">
+								<span th:text="${entry.value.productName}"></span>
+							</a>
+						</div>
+
+						<div class="total-price">
+							<span th:text="${entry.value.price}"></span> <span>lei</span>
+						</div>
 					</div>
 
-					<div class="total-price">
-						<span th:text="${entry.value.price}"></span> <span>lei</span>
-					</div>
+					<!-- Product #1 -->
+
 				</div>
-
-				<!-- Product #1 -->
-
 			</div>
-		</div>
-		<br> <a th:href="@{/cart/checkout}"><button
-				class="submit-btn">Checkout</button></a>
+			<br> <a th:href="@{/cart/checkout}"><button
+					class="submit-btn">Checkout</button></a>
+
 	</div>
 </body>
 </html>

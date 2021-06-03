@@ -1,11 +1,12 @@
-<html xmlns:th="https://www.thymeleaf.org">
+<html xmlns:th="https://www.thymeleaf.org"
+xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head th:replace="fragments/header :: header-css"></head>
 <body>
   <div class="mainbody">
 	<div th:replace="fragments/header :: header"></div>
 
 
-		<div class="form-box_R">
+		<div sec:authorize="hasAnyAuthority('CREATOR', 'ADMIN')" class="form-box_R">
 			<form id="register" class="input-group_R" method="post"
 				th:object="${productInfo}">
 				<input type="text" class="input-field" placeholder="Nume Produs" required th:field="*{productName}"> 
