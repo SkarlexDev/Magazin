@@ -47,9 +47,13 @@
 	margin: 0 auto;
 }
 
-.user_inner td {
-	
+.user_inner h3{
+	color: red;
+	text-align: center;
+	padding: 10px;
+	margin-bottom: 5%;
 }
+
 
 .user_inner2 {
 	width: 80%;

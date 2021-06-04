@@ -7,8 +7,7 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 
 		<div sec:authorize="hasAnyAuthority('CREATOR', 'ADMIN')" class="form-box_R">
-			<form id="register" class="input-group_R" method="post"
-				th:object="${productInfo}">
+			<form id="register" class="input-group_R" method="post"	th:object="${productInfo}">
 				<input type="text" class="input-field" placeholder="Nume Produs" required th:field="*{productName}"> 
 				<p th:if="${error} == 'true'" class="error_msg"> Numele Produsului exista deja !</p>
 				<input type="text" class="input-field" placeholder="Imagine(URL)" required th:field="*{imageURL}"> 

@@ -4,56 +4,53 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <body>
 	<div class="mainbody">
 	<div th:replace="fragments/header :: header"></div>
-		<div class="head_elem">
+		<div class="head_elem" sec:authorize="isAuthenticated()">
 			<div class="navleft"></div>
 			<div class="section">
-				<h2>Welcome to your profile |nume|</h2>
+				<h2>Welcome to your profile <span sec:authentication="name"></span></h2>
 				<p>Here you can edit account details and see order history</p>
 			</div>
 		</div>
 		<div class="space_section"></div>
-		<div class="items_list">
+		<div class="items_list" sec:authorize="isAuthenticated()">
 			<div class="container_profile">
 				<div class="user_info_panel">
 					<div class="user_inner">
-						<form id ="register" class="input-group">
+						<h3 th:if="${method} == 'updated'">Data updated !</h3>
+						<form id ="register" class="input-group" method="post"	th:object="${userData}">
 							<table style="width:100%">
 
 								<tr>
 									<td><b>Nume</b></td>
-									<td><input type="text" class="input-field_user" value="Pop" required></td>
+									<td><input type="text" class="input-field_user" required th:field="*{lastName}" ></td>
 								</tr>
 								<tr>
 									<td><b>Prenume</b></td>
-									<td><input type="text" class="input-field_user" value="Marius" required></td>
+									<td><input type="text" class="input-field_user" required th:field="*{firstName}"></td>
 								</tr>
 								<tr>
 									<td><b>Telefon</b></td>
-									<td><input type="text" class="input-field_user" value="555 77 855" required></td>
-								</tr>
-								<tr>
-									<td><b>Email</b></td>
-									<td><input type="email" class="input-field_user" value="test@gmail.com" required></td>
+									<td><input type="text" class="input-field_user" value="555 77 855" required th:field="*{telefon}"></td>
 								</tr>
 								<tr>
 									<td><b>Adresa</b></td>
-									<td><input type="text" class="input-field_user" value="Str.1 ap 24" required></td>
+									<td><input type="text" class="input-field_user" value="Str.1 ap 24" required th:field="*{adresa}"></td>
 								</tr>
 								<tr>
 									<td><b>Oras</b></td>
-									<td><input type="text" class="input-field_user" value="Oradea" required></td>
+									<td><input type="text" class="input-field_user" value="Oradea" required th:field="*{oras}"></td>
 								</tr>
 								<tr>
 									<td><b>Judet</b></td>
-									<td><input type="text" class="input-field_user" value="Bihor" required></td>
+									<td><input type="text" class="input-field_user" value="Bihor" required th:field="*{judet}"></td>
 								</tr>
 								<tr>
 									<td><b>Cod postal</b></td>
-									<td><input type="text" class="input-field_user" value="410001" required></td> <!-- 6 -->
+									<td><input type="text" class="input-field_user" value="410001" required th:field="*{codPostal}"></td> <!-- 6 -->
 								</tr>						
 							</table>
 							<br>
-							<button type="submit" class="submit-btn-user">Save</button>
+							<button type="submit" class="submit-btn-user" th:action="@{/profile}">Save</button>
 						</form>
 					</div>
 					<br>

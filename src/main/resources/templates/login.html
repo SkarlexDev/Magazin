@@ -5,11 +5,14 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 	<div class="mainbody">
 		<div th:replace="fragments/header :: header"></div>
 		<div class="form-box_L">
-			<form id = "login" class="input-group_L">
-		         <input type="text" class="input-field" placeholder="User id" required>
-		         <input type="text" class="input-field" placeholder="Enter password" required>
+			<form id = "login" class="input-group_L" th:action="@{/login}" method="post">
+				<div th:if="${param.error}">Invalid username or password.<br></div>
+                <div th:if="${param.logout}">You have been logged out.<br></div>
+		
+		         <input type="text" id="username" name="username" class="input-field" autofocus="autofocus" placeholder="Email">
+		         <input type="password" id="password" name="password" class="input-field" placeholder="Password">
 		         <input type="checkbox" class="check-box"><span>Remember password</span>
-		         <button type="submit" class="submit-btn">Log In</button>
+		         <input type="submit" name="login-submit" id="login-submit" class="submit-btn" value="Log In">
 		         <div class="form_link">No Account ? <a href="/register">Register</a></div>
 			</form>
 		</div>
