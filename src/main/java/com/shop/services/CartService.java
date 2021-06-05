@@ -28,7 +28,7 @@ public class CartService {
 	public List<Product> getAllproducts(){
 		return products;
 	}
-	
+
 	public void addProduct(Product product) {
 		String price = String.valueOf(product.getPrice());
 		totalPrice = totalPrice.add(new BigDecimal(price));
