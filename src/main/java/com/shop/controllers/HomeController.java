@@ -49,6 +49,25 @@ public class HomeController {
 		// cart info poate
 		return "item";
 	}
+	
+	@GetMapping("/cart/add/{productlink}")
+	public String addToCart(@PathVariable String productlink, Model model) {
+		Product product = productService.findByproductlink(productlink);
+		cartService.addProduct(product);
+		return "redirect:/home";
+	}
+
+	@GetMapping("/cart/remove/{id}")
+	public String removeFromCart(@PathVariable int id, Model model) {
+		cartService.delete(id);
+		return "redirect:/home";
+	}
+
+	@GetMapping("/cart/checkout")
+	public String checkout(Model model) {
+		cartService.checkout();
+		return "redirect:/home";
+	}
 
 
 }
