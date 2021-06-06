@@ -14,27 +14,30 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 				<p th:text="${totalprice}"></p>
 			</div>
 			<div class="shopping-cart-content">
-				<div th:each="entry : ${checkMap}">
+				<div th:each="entry : ${listCartItems}">
 					<!-- Product  -->
-					<div class="item-cart">
+					<div class="item-cart" th:with="item = ${entry.product}">
 						<div class="cancel-itemcart">
-							<a th:href="@{/cart/remove/{id}(id=${entry.key})}">&#x2716;</a>
+							<a th:href="@{/cart/remove/{productID}(productID=${item.id})}">&#x2716;</a>
 						</div>
 						<a
-							th:href="@{/shop/{category}/{product}(category=${entry.value.category}, product=${entry.value.productlink})}">
+							th:href="@{/shop/{category}/{product}(category=${item.category}, product=${item.productlink})}">
 							<div class="imagecart">
-								<img th:src="${entry.value.imageURL}" alt="" />
+								<img th:src="${item.imageURL}" alt="" />
 							</div>
 						</a>
 						<div class="description">
 							<a
-								th:href="@{/shop/{category}/{product}(category=${entry.value.category}, product=${entry.value.productlink})}">
-								<span th:text="${entry.value.productName}"></span>
+								th:href="@{/shop/{category}/{product}(category=${item.category}, product=${item.productlink})}">
+								<span th:text="${item.productName}"></span>
 							</a>
 						</div>
-
+						<div class="cart-item-quantity">
+						Quantity
+						<span th:text="${entry.quantity}"></span>
+						</div>
 						<div class="total-price">
-							<span th:text="${entry.value.price}"></span> <span>lei</span>
+							<span th:text="${item.price*entry.quantity}"></span> <span>lei</span>
 						</div>
 					</div>
 

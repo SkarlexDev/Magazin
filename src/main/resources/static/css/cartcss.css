@@ -1,7 +1,7 @@
 .shopping-cart {
 	min-height:0px;
 	max-height: 600px;
-	width: 430px;
+	width: 450px;
 	margin: 100px auto;
 	background: #FFFFFF;
 	border-radius: 6px;
@@ -70,4 +70,18 @@
 	font-size: 16px;
 	color: #43484D;
 	display: block;
+	margin-right: 10px;
 }
+
+.cart-item-quantity{
+	width: 120px;
+	display: block;
+	padding-top: 20px;
+	text-align: center;
+	margin-right: 20px;
+}
+
+
+
+
+

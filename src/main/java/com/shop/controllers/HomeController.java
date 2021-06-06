@@ -1,13 +1,20 @@
 package com.shop.controllers;
+import java.math.BigDecimal;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import com.shop.services.CartService;
+
+import com.shop.services.CartItemService;
 import com.shop.services.ProductService;
+import com.shop.services.UserService;
+import com.shop.struct.CartItem;
 import com.shop.struct.Product;
+import com.shop.struct.User;
 @Controller
 public class HomeController {
 	
@@ -15,28 +22,55 @@ public class HomeController {
 	private ProductService productService;
 	
 	@Autowired
-	private CartService cartService;
+	private CartItemService cartItemService;
+	
+	@Autowired
+	private UserService userService;
 			
 	@GetMapping({"/home","/"})
-	public String getAllproducts(Model model) {		
+	public String getAllproducts(Model model, 
+		@AuthenticationPrincipal Authentication authentication) {					
+		User user = userService.getLoggedUser(authentication);
+		
+		BigDecimal totalPrice = new BigDecimal("0");
+		
 		List<Product> products = productService.findAll();		
+		List<CartItem> listCartItems =cartItemService.listCartItems(user);
+		
+		for (CartItem lci : listCartItems) {
+			String price = String.valueOf(lci.getProduct().getPrice()*lci.getQuantity());
+            totalPrice = totalPrice.add(new BigDecimal(price));
+        }
+		
+		model.addAttribute("listCartItems", listCartItems);		
 		model.addAttribute("products", products);
-		model.addAttribute("pageTitle", "Home");
-		// cart info
-		List<Product> cart_products = cartService.getAllproducts();
-		model.addAttribute("cart_products", cart_products);
-		model.addAttribute("totalprice", cartService.totalPrice);
-		model.addAttribute("checkMap", cartService.productCart);
-		model.addAttribute("removeid", "da");
+		model.addAttribute("totalprice", totalPrice);
+		model.addAttribute("pageTitle", "Home");	
+
 		return "index";
 	}
 	
 	@GetMapping("/shop/{category}")
-	public String getCategory(@PathVariable String category, Model model) {
+	public String getCategory(@PathVariable String category, 
+		Model model, @AuthenticationPrincipal Authentication authentication) {
+		User user = userService.getLoggedUser(authentication);
+		
 		List<Product> products = productService.findAllByCategory(category);
+		List<CartItem> listCartItems =cartItemService.listCartItems(user);
+		
+		BigDecimal totalPrice = new BigDecimal("0");
+		
+		for (CartItem lci : listCartItems) {
+			String price = String.valueOf(lci.getProduct().getPrice()*lci.getQuantity());
+            totalPrice = totalPrice.add(new BigDecimal(price));
+        }
+
+		model.addAttribute("listCartItems", listCartItems);	
 		model.addAttribute("products", products);	
 		model.addAttribute("category",category);
-		model.addAttribute("pageTitle", category);		
+		model.addAttribute("totalprice", totalPrice);
+		model.addAttribute("pageTitle", category);
+		
 		return "index";	
 	}
 
@@ -46,26 +80,31 @@ public class HomeController {
 		Product product = productService.findByproductlink(productlink);
 		model.addAttribute("productInfo", product);
 		model.addAttribute("pageTitle", product.getProductName());
-		// cart info poate
 		return "item";
 	}
 	
 	@GetMapping("/cart/add/{productlink}")
-	public String addToCart(@PathVariable String productlink, Model model) {
+	public String addToCart(@PathVariable String productlink, 
+		Model model,@AuthenticationPrincipal Authentication authentication) {
+		User user = userService.getLoggedUser(authentication);
 		Product product = productService.findByproductlink(productlink);
-		cartService.addProduct(product);
+		cartItemService.addProduct(product, user);
 		return "redirect:/home";
 	}
 
-	@GetMapping("/cart/remove/{id}")
-	public String removeFromCart(@PathVariable int id, Model model) {
-		cartService.delete(id);
+	@GetMapping("/cart/remove/{productID}")
+	public String removeFromCart(@PathVariable long productID, 
+		Model model,@AuthenticationPrincipal Authentication authentication) {
+		User user = userService.getLoggedUser(authentication);
+		
+		cartItemService.removeProduct(user.getId(), productID);
 		return "redirect:/home";
 	}
 
 	@GetMapping("/cart/checkout")
-	public String checkout(Model model) {
-		cartService.checkout();
+	public String checkout(Model model,@AuthenticationPrincipal Authentication authentication) {
+		User user = userService.getLoggedUser(authentication);		
+		cartItemService.checkout(user.getId());
 		return "redirect:/home";
 	}
 
