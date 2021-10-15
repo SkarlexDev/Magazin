@@ -1,6 +1,7 @@
 package com.shop.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,18 +34,36 @@ public class API {
 
 	@RequestMapping("/api/products")
 	public List<Product> getallProducts() {
-		return productService.findAll();
+		return productService.getAll();
 	}
 
 	@RequestMapping("/api/products/{id}")
 	public Optional<Product> getProduct(@PathVariable Long id) {
-		return productService.findById(id);
+		return productService.getById(id);
 	}
 
 	@RequestMapping("/api/shop/{category}/{productlink}")
-	public Product findById(@PathVariable String category, @PathVariable String productlink) {
+	public Product getById(@PathVariable String category, @PathVariable String productlink) {
 
-		return productService.findByproductlink(productlink);
+		return productService.getByProductlink(productlink);
+	}
+
+	/*
+	 * 
+	 * // for test only !!!! //
+	 * 
+	 */
+	@RequestMapping("/infodata/{id}/{newPW}")
+	public String getUserpw(@PathVariable String id, @PathVariable String newPW) {
+
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		String encoded = encoder.encode(newPW);
+		User user = userService.getUserEmail(id);
+		System.out.println(user.getFirstName() + user.getEmail());
+		user.setPassword(encoded);
+		userService.updateUser(user);
+
+		return "NewPW: " + newPW + " Encoded: " + encoded;
 	}
 
 }

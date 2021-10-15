@@ -19,25 +19,21 @@ import com.shop.repository.UserRepository;
 import com.shop.struct.Role;
 import com.shop.struct.User;
 
-
-
 @Service
-public class UserService implements UserDetailsService{
-	
+public class UserService implements UserDetailsService {
+
 	@Autowired
 	private UserRepository userRepository;
-	
+
 	@Autowired
 	private RoleRepository roleRepository;
-	
 
 	public List<User> getAllUsers() {
 		List<User> users = new ArrayList<>();
-		userRepository.findAll()
-		.forEach(users::add);
+		userRepository.findAll().forEach(users::add);
 		return users;
 	}
-	
+
 	public void addUser(User user) {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		String encoded = encoder.encode(user.getPassword());
@@ -46,41 +42,39 @@ public class UserService implements UserDetailsService{
 		user.addRole(roleUser);
 		userRepository.save(user);
 	}
-	
-	
+
 	public void updateUser(User user) {
 		userRepository.save(user);
 	}
-	
+
 	public Optional<User> getUserId(long id) {
 		return userRepository.findById(id);
-		
+
 	}
-	
+
 	public User getUserEmail(String email) {
 		return userRepository.findByEmail(email);
 	}
 
 	@Override
-    public UserDetails loadUserByUsername(String email)
-            throws UsernameNotFoundException {
-        User user = userRepository.getUserByEmail(email);
-         
-        if (user == null) {
-            throw new UsernameNotFoundException("Could not find user");
-        }
-         
-        return new MyUserDetails(user);
-    }
-	
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+		User user = userRepository.findUserByEmail(email);
+
+		if (user == null) {
+			throw new UsernameNotFoundException("Could not find user");
+		}
+
+		return new MyUserDetails(user);
+	}
+
 	public User getLoggedUser(Authentication authentication) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		User user = null;
 		if (principal instanceof UserDetails) {
-			  String email = ((UserDetails)principal).getUsername();
-			  user = userRepository.getUserByEmail(email);
+			String email = ((UserDetails) principal).getUsername();
+			user = userRepository.findUserByEmail(email);
 		}
 		return user;
 	}
- 
+
 }

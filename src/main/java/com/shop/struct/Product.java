@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Product")
+@Table(name = "Products")
 public class Product {
 
 	@Id
@@ -32,6 +32,9 @@ public class Product {
 
 	@Column(name = "category")
 	private String category;
+
+	@Column(name = "active")
+	private boolean active;
 
 	public Long getId() {
 		return id;
@@ -89,11 +92,18 @@ public class Product {
 		this.category = category;
 	}
 
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+
 	@Override
 	public String toString() {
 		return "Product [id=" + id + ", productlink=" + productlink + ", productName=" + productName + ", description="
 				+ description + ", price=" + price + ", imageURL=" + imageURL + ", category=" + category + "]";
 	}
 
-	
 }

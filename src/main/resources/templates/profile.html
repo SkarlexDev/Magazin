@@ -1,13 +1,15 @@
 <html xmlns:th="https://www.thymeleaf.org"
-xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head th:replace="fragments/header :: header-css"></head>
 <body>
 	<div class="mainbody">
-	<div th:replace="fragments/header :: header"></div>
+		<div th:replace="fragments/header :: header"></div>
 		<div class="head_elem" sec:authorize="isAuthenticated()">
 			<div class="navleft"></div>
 			<div class="section">
-				<h2>Welcome to your profile <span sec:authentication="name"></span></h2>
+				<h2>
+					Welcome to your profile <span sec:authentication="name"></span>
+				</h2>
 				<p>Here you can edit account details and see order history</p>
 			</div>
 		</div>
@@ -17,130 +19,89 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 				<div class="user_info_panel">
 					<div class="user_inner">
 						<h3 th:if="${method} == 'updated'">Data updated !</h3>
-						<form id ="register" class="input-group" method="post"	th:object="${userData}">
-							<table style="width:100%">
+						<form id="register" class="input-group" method="post"
+							th:object="${userData}">
+							<table style="width: 100%">
 
 								<tr>
 									<td><b>Nume</b></td>
-									<td><input type="text" class="input-field_user" required th:field="*{lastName}" ></td>
+									<td><input type="text" class="input-field_user" required
+										th:field="*{lastName}"></td>
 								</tr>
 								<tr>
 									<td><b>Prenume</b></td>
-									<td><input type="text" class="input-field_user" required th:field="*{firstName}"></td>
+									<td><input type="text" class="input-field_user" required
+										th:field="*{firstName}"></td>
 								</tr>
 								<tr>
 									<td><b>Telefon</b></td>
-									<td><input type="text" class="input-field_user" required th:field="*{telefon}"></td>
+									<td><input type="text" class="input-field_user" required
+										th:field="*{telefon}"></td>
 								</tr>
 								<tr>
 									<td><b>Adresa</b></td>
-									<td><input type="text" class="input-field_user" required th:field="*{adresa}"></td>
+									<td><input type="text" class="input-field_user" required
+										th:field="*{adresa}"></td>
 								</tr>
 								<tr>
 									<td><b>Oras</b></td>
-									<td><input type="text" class="input-field_user" required th:field="*{oras}"></td>
+									<td><input type="text" class="input-field_user" required
+										th:field="*{oras}"></td>
 								</tr>
 								<tr>
 									<td><b>Judet</b></td>
-									<td><input type="text" class="input-field_user" required th:field="*{judet}"></td>
+									<td><input type="text" class="input-field_user" required
+										th:field="*{judet}"></td>
 								</tr>
 								<tr>
 									<td><b>Cod postal</b></td>
-									<td><input type="text" class="input-field_user" required th:field="*{codPostal}"></td> <!-- 6 -->
-								</tr>						
+									<td><input type="text" class="input-field_user" required
+										th:field="*{codPostal}"></td>
+									<!-- 6 -->
+								</tr>
 							</table>
 							<br>
-							<button type="submit" class="submit-btn-user" th:action="@{/profile}">Save</button>
+							<button type="submit" class="submit-btn-user"
+								th:action="@{/profile}">Save</button>
 						</form>
 					</div>
 					<br>
-					<div class="center_bold">Istoric cumparaturi</div>
+					<div class="center_bold">Istoric cumparaturi [ In Work ]</div>
 					<div class="user_inner2">
-						<div class="istoric">	
+						<div class="istoric">
 							<div class="Row">
-								<div class="Column"><p>Produse</p></div>
-								<div class="Column"><p>Bucati</p></div>
-								<div class="Column"><p>Pret</p></div>
+								<div class="Column">
+									<p>Order</p>
+								</div>
+								<div class="Column">
+									<p>Pret</p>
+								</div>
+								<div class="Column">
+									<p>More</p>
+								</div>
 							</div>
-							<hr>				
+							<hr>
 							<div class="istoric_list">
 								<!-- Istoric -->
-								<div class="istoric_list_Row">
-									<div class="istoric_list_Column">Telefon</div>
-									<div class="istoric_list_Column">20</div>
-									<div class="istoric_list_Column">150lei</div>
+								<div th:each="entry,count : ${orders}">
+									<div class="istoric_list_Row">
+										<div class="istoric_list_Column" th:text="${count.index+1}"></div>
+										<div class="istoric_list_Column" th:text="${entry.totalPrice}"></div>
+										<div class="istoric_list_Column">										
+											<a th:href="@{/orderDetail/{userID}/{orderId}(userID=${entry.user.id}, orderId=${entry.id})}">View</a>
+											
+										</div>
+
+									</div>
 								</div>
 								<!-- Istoric -->
-								<!-- Istoric -->
-								<div class="istoric_list_Row">
-									<div class="istoric_list_Column">Telefon</div>
-									<div class="istoric_list_Column">20</div>
-									<div class="istoric_list_Column">150lei</div>
-								</div>
-								<!-- Istoric -->
-								<!-- Istoric -->
-								<div class="istoric_list_Row">
-									<div class="istoric_list_Column">Telefon</div>
-									<div class="istoric_list_Column">20</div>
-									<div class="istoric_list_Column">150lei</div>
-								</div>
-								<!-- Istoric -->
-								<!-- Istoric -->
-								<div class="istoric_list_Row">
-									<div class="istoric_list_Column">Telefon</div>
-									<div class="istoric_list_Column">20</div>
-									<div class="istoric_list_Column">150lei</div>
-								</div>
-								<!-- Istoric -->
-								<!-- Istoric -->
-								<div class="istoric_list_Row">
-									<div class="istoric_list_Column">Telefon</div>
-									<div class="istoric_list_Column">20</div>
-									<div class="istoric_list_Column">150lei</div>
-								</div>
-								<!-- Istoric -->
-								<!-- Istoric -->
-								<div class="istoric_list_Row">
-									<div class="istoric_list_Column">Telefon</div>
-									<div class="istoric_list_Column">20</div>
-									<div class="istoric_list_Column">150lei</div>
-								</div>
-								<!-- Istoric -->
-								<!-- Istoric -->
-								<div class="istoric_list_Row">
-									<div class="istoric_list_Column">Telefon</div>
-									<div class="istoric_list_Column">20</div>
-									<div class="istoric_list_Column">150lei</div>
-								</div>
-								<!-- Istoric -->
-								<!-- Istoric -->
-								<div class="istoric_list_Row">
-									<div class="istoric_list_Column">Telefon</div>
-									<div class="istoric_list_Column">20</div>
-									<div class="istoric_list_Column">150lei</div>
-								</div>
-								<!-- Istoric -->
-								<!-- Istoric -->
-								<div class="istoric_list_Row">
-									<div class="istoric_list_Column">Telefon</div>
-									<div class="istoric_list_Column">20</div>
-									<div class="istoric_list_Column">150lei</div>
-								</div>
-								<!-- Istoric -->
+
 							</div>
 						</div>
 					</div>
-
 				</div>
 			</div>
-
-
-
-			
 		</div>
-
-
 	</div>
-	</script>
 </body>
 </html>

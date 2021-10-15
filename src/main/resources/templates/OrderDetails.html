@@ -1,0 +1,55 @@
+<html xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:replace="fragments/header :: header-css"></head>
+<body>
+	<div class="mainbody">
+	<div th:replace="fragments/header :: header"></div>
+		<div class="space_section"></div>
+		<div sec:authorize="isAuthenticated()">
+			<div class="order_panel">
+				<div class="user_info_panel">
+
+					<div class="center_bold">Detalii comanda</div>
+
+					<div class="istoric">
+						<div class="Row">
+							<div class="Column">
+								<p>No</p>
+							</div>
+							<div class="Column">
+								<p>Nume Produs</p>
+							</div>
+							<div class="Column">
+								<p>Pret</p>
+							</div>
+							<div class="Column">
+								<p>Cantitate</p>
+							</div>
+							<div class="Column">
+								<p>Link</p>
+							</div>
+						</div>
+
+						<!-- Istoric -->
+						<div th:each="entry,count : ${orders}">
+							
+							<div class="istoric_list_Row">
+								<div class="istoric_list_Column" th:text="${count.index+1}"></div>
+								<div class="istoric_list_Column" th:text="${entry.product.productName}"></div>
+								<div class="istoric_list_Column" th:text="${entry.price}"></div>
+								<div class="istoric_list_Column" th:text="${entry.quantity}"></div>
+								<div class="istoric_list_Column">
+								<a th:href="@{/shop/{category}/{product}(category=${entry.product.category}, product=${entry.product.productlink})}">Link</a>
+								</div>
+
+							</div>
+						</div>
+						<!-- Istoric -->
+					</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+</body>
+</html>

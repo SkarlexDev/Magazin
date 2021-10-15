@@ -17,6 +17,15 @@
 	padding-bottom: 20px;
 }
 
+.order_panel {
+	width: 100%;
+	display: flex;
+	margin-right: auto;
+	margin-left: auto;
+	text-align: left;
+	padding-bottom: 20px;
+}
+
 .submit-btn-user {
 	width: 55%;
 	padding: 10px 30px;
@@ -109,3 +118,9 @@
 	padding-bottom: 20px;
 	border: 1px solid black;
 }
+
+.istoric_list_Column a{
+	text-decoration: underline;
+	color: blue;
+}
+

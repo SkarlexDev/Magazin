@@ -9,20 +9,20 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "cart_item")
+@Table(name = "cart_items")
 public class CartItem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@ManyToOne
-	@JoinColumn(name="product_id")
+	@JoinColumn(name = "product_id")
 	private Product product;
-	
+
 	@ManyToOne
-	@JoinColumn(name="user_id")
+	@JoinColumn(name = "user_id")
 	private User user;
-	
+
 	private int quantity;
 
 	public Long getId() {
@@ -56,14 +56,5 @@ public class CartItem {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-
-	@Override
-	public String toString() {
-		return "CartItem [id=" + id + ", product=" + product + ", user=" + user + ", quantity=" + quantity + "]";
-	}
-
-	
-	
-	
 
 }

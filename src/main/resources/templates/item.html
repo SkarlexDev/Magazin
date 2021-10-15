@@ -21,9 +21,13 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 					<div class="rightDiv">
 						<div class="right_item_data">
 							<span th:text="${productInfo.price}"></span> <span>lei</span> 
-								<a th:href="@{/cart/add/{product}(product=${productInfo.productlink})}">
+								<a th:if="${productInfo.active} == true" th:href="@{/cart/add/{product}(product=${productInfo.productlink})}">
 									<button>Add to Cart</button>
 								</a>
+								<a th:if="${productInfo.active} == false">
+									<button>Disabled</button>
+								</a>
+							
 						</div>
 					</div>
 				</div>

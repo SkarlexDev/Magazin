@@ -8,7 +8,6 @@ public class magazinDemoApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(magazinDemoApplication.class, args);
-
 	}
 
 }

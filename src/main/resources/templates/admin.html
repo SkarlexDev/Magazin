@@ -32,15 +32,18 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 				<!-- produs -->
 				<div th:each="product : ${products}" class="item">
 					<div class="itemcontainer" >
+						<div th:if="${product.active} == false" class ="disabled_item"><p>Disabled</p></div>
 						<img class="inner_image" th:src="${product.imageURL}"
-								alt="Descriere">
+								alt="Descriere">						
 						<h2 class="nume_produs_link" th:text="${product.productName}"></h2>
 						<div class="pret_display">
 								<span th:text="${product.price}"></span> <span>lei</span>
 						</div>
 						<div class="item_options">
 						<a th:href="@{/admin/product/edit/{id}(id=${product.id})}" class="button_link">Edit</a>
-						<a th:href="@{/admin/product/delete/{id}(id=${product.id})}" class="button_link">Delete</a>
+						
+						<a th:if="${product.active} == true" th:href="@{/admin/product/disable/{id}(id=${product.id})}" class="button_link">Disable</a>
+						<a th:if="${product.active} == false" th:href="@{/admin/product/enable/{id}(id=${product.id})}" class="button_link_disabled">Enable</a>
 						</div>
 					</div>
 				</div>

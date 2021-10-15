@@ -15,42 +15,49 @@ public class ProductService {
 
 	@Autowired
 	private ProductRepository productRepository;
-	
-	public List<Product> findAll() {
+
+	public List<Product> getAll() {
 		List<Product> products = new ArrayList<>();
-		productRepository.findAll()
-		.forEach(products::add);
+		productRepository.findAll().forEach(products::add);
 		return products;
 	}
 
-	public Optional<Product> findById(Long id) {
+	public Optional<Product> getById(Long id) {
 		return productRepository.findById(id);
 	}
-	
-	public Product findByproductlink(String productlink) {
+
+	public Product getByProductlink(String productlink) {
 		return productRepository.findByproductlink(productlink);
 	}
 
-
-	public List<Product> findAllByCategory(String category) {
+	public List<Product> getAllByCategory(String category) {
 		List<Product> products = new ArrayList<>();
-		productRepository.findAllByCategory(category)
-		.forEach(products::add);
+		productRepository.findAllByCategory(category).forEach(products::add);
 		return products;
-		
+
 	}
+
 	public void addproduct(Product product) {
+		product.setActive(true);
 		productRepository.save(product);
 	}
-	
+
 	public void editproduct(Product product) {
 		productRepository.save(product);
 	}
-	
-	public void deleteproduct(Long id) {
-		productRepository.deleteById(id);			  
+
+	public void disableProduct(Long id) {
+		// productRepository.deleteById(id);
+		Product product = productRepository.findById(id).get();
+		product.setActive(false);
+		productRepository.save(product);
 	}
 
-
+	public void enableProduct(Long id) {
+		// productRepository.deleteById(id);
+		Product product = productRepository.findById(id).get();
+		product.setActive(true);
+		productRepository.save(product);
+	}
 
 }

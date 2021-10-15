@@ -17,19 +17,18 @@ import com.shop.struct.Product;
 
 @Controller
 public class ProductController {
-	
+
 	@Autowired
 	private ProductService productService;
-	
 
 	@GetMapping("/admin")
 	public String adminPanel(Model model) {
-		List<Product> products = productService.findAll();		
+		List<Product> products = productService.getAll();
 		model.addAttribute("products", products);
 		model.addAttribute("pageTitle", "Admin");
 		return "admin";
 	}
-		
+
 	@GetMapping("/admin/product/new")
 	public String newtproduct(Model model) {
 		model.addAttribute("productInfo", new Product());
@@ -37,39 +36,41 @@ public class ProductController {
 		model.addAttribute("pageTitle", "New product");
 		return "product";
 	}
+
 	@PostMapping("/admin/product/new")
-	public String postproduct(@ModelAttribute Product productInfo , Model model) throws Exception {
+	public String postproduct(@ModelAttribute Product productInfo, Model model) throws Exception {
 		try {
 			boolean allowpost = true;
-			productInfo.setProductlink(productInfo.getProductName().replaceAll(" ", "_").replaceAll("-", "").replaceAll(",", "").replaceAll("/", "."));
+			productInfo.setProductlink(productInfo.getProductName().replaceAll(" ", "_").replaceAll("-", "")
+					.replaceAll(",", "").replaceAll("/", "."));
 			List<Product> products = new ArrayList<Product>();
-			products.addAll(productService.findAll());
-			for(Product product:products) {
-				if(product.getProductlink().equals(productInfo.getProductlink())) {
+			products.addAll(productService.getAll());
+			for (Product product : products) {
+				if (product.getProductlink().equals(productInfo.getProductlink())) {
 					allowpost = false;
 				}
 			}
-			
-			if(allowpost){
+
+			if (allowpost) {
 				productService.addproduct(productInfo);
 				return "redirect:/admin";
-			}else {
+			} else {
 				throw new Exception();
-			}			
-			
+			}
+
 		} catch (Exception e) {
 			model.addAttribute("productInfo", new Product());
 			model.addAttribute("method", "new");
-			model.addAttribute("error","true");
+			model.addAttribute("error", "true");
 			model.addAttribute("pageTitle", "New product");
 			return "product";
 		}
-		
+
 	}
-	
+
 	@GetMapping("admin/product/edit/{id}")
 	public String editProduct(@PathVariable Long id, Model model) {
-		Optional<Product> productCall =productService.findById(id);
+		Optional<Product> productCall = productService.getById(id);
 		Product product = productCall.get();
 		System.out.println(product);
 		model.addAttribute("productInfo", product);
@@ -77,29 +78,37 @@ public class ProductController {
 		model.addAttribute("pageTitle", "Edit");
 		return "product";
 	}
-	
+
 	@PostMapping("admin/product/edit/{id}")
-	public String postEditProduct(@PathVariable Long id, Model model, @ModelAttribute("productInfo") Product productInfo) {
+	public String postEditProduct(@PathVariable Long id, Model model,
+			@ModelAttribute("productInfo") Product productInfo) {
 		try {
-			productInfo.setProductlink(productInfo.getProductName().replaceAll(" ", "_").replaceAll("-", "").replaceAll(",", "").replaceAll("/", "."));
+			productInfo.setProductlink(productInfo.getProductName().replaceAll(" ", "_").replaceAll("-", "")
+					.replaceAll(",", "").replaceAll("/", "."));
 			productService.editproduct(productInfo);
-			return "redirect:/admin";			
+			return "redirect:/admin";
 		} catch (Exception e) {
-			Optional<Product> productCall =productService.findById(id);
+			Optional<Product> productCall = productService.getById(id);
 			Product product = productCall.get();
 			System.out.println(product);
 			model.addAttribute("productInfo", product);
 			model.addAttribute("method", "edit");
 			model.addAttribute("pageTitle", "Edit");
-			model.addAttribute("error","true");
+			model.addAttribute("error", "true");
 			return "product";
 		}
 	}
-	
-	@GetMapping("admin/product/delete/{id}")
-	public String deleteproduct(@PathVariable Long id){
-		productService.deleteproduct(id);
+
+	@GetMapping("admin/product/disable/{id}")
+	public String disableProduct(@PathVariable Long id) {
+		productService.disableProduct(id);
 		return "redirect:/admin";
 	}
-	
+
+	@GetMapping("admin/product/enable/{id}")
+	public String enableProduct(@PathVariable Long id) {
+		productService.enableProduct(id);
+		return "redirect:/admin";
+	}
+
 }

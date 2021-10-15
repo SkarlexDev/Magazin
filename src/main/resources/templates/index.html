@@ -29,7 +29,7 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 			<div class="container">
 				<!-- produs -->
 				<div th:each="product : ${products}" class="item">
-					<a class="itemcontainer" th:href="@{/shop/{category}/{product}(category=${product.category}, product=${product.productlink})}">
+					<a th:if="${product.active} == true" class="itemcontainer" th:href="@{/shop/{category}/{product}(category=${product.category}, product=${product.productlink})}">
 						<img class="inner_image" th:src="${product.imageURL}"
 								alt="Descriere">
 						<h2 class="nume_produs_link" th:text="${product.productName}"></h2>
