@@ -52,26 +52,41 @@ public class CartItemService {
 		cartItemRepository.save(cartItem);
 	}
 
-	public void removeProduct(Long userID, Long productID) {
-		cartItemRepository.deleteByUserAndProduct(userID, productID);
+	public void removeProduct(User user, Product product) {
+		CartItem cartItem = cartItemRepository.findByUserAndProduct(user, product);
+		List<CartItem> listCartItems = cartItemRepository.findByUser(user);
+		for (CartItem lci : listCartItems) {
+			if (lci.getProduct().getId().equals(cartItem.getProduct().getId())) {
+				if (cartItem.getQuantity() == 1) {
+					cartItemRepository.deleteByUserAndProduct(user.getId(), product.getId());
+				} else {
+					cartItem.setQuantity(cartItem.getQuantity() - 1);
+				}
+			}
+		}
+		cartItemRepository.save(cartItem);
 	}
 
 	public void checkout(User user) {
 		List<CartItem> listCartItems = cartItemRepository.findByUser(user);
-		Order order = new Order(user);
-		orderRepository.save(order);
-		double totalprice = 0;
-		for (CartItem lci : listCartItems) {
-			double price = lci.getProduct().getPrice() * lci.getQuantity();
-			Orderitems oi = new Orderitems(lci.getId(), lci.getQuantity(), price, order.getId(), order,
-					lci.getProduct());
-			totalprice = totalprice + price;
-			orderitemsRepository.save(oi);
-		}
+		if (listCartItems.size() != 0) {
+			Order order = new Order(user);
+			orderRepository.save(order);
+			double totalprice = 0;
+			for (CartItem lci : listCartItems) {
+				double price = lci.getProduct().getPrice() * lci.getQuantity();
+				Orderitems oi = new Orderitems(lci.getId(), lci.getQuantity(), price, order.getId(), order,
+						lci.getProduct());
+				totalprice = totalprice + price;
+				orderitemsRepository.save(oi);
+			}
 
-		order.setTotalPrice(totalprice);
-		orderRepository.save(order);
-		cartItemRepository.deleteByUser(user.getId());
+			order.setTotalPrice(totalprice);
+			order.saveOrder(user.getLastName().toString(), user.getFirstName().toString(), user.getCodPostal(),
+					user.getAdresa(), user.getJudet(), user.getTelefon(), user.getOras(), user.getEmail());
+			orderRepository.save(order);
+			cartItemRepository.deleteByUser(user.getId());
+		}
 	}
 
 }

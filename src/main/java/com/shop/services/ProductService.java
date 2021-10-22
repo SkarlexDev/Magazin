@@ -43,18 +43,17 @@ public class ProductService {
 	}
 
 	public void editproduct(Product product) {
+		product.setActive(true);
 		productRepository.save(product);
 	}
 
 	public void disableProduct(Long id) {
-		// productRepository.deleteById(id);
 		Product product = productRepository.findById(id).get();
 		product.setActive(false);
 		productRepository.save(product);
 	}
 
 	public void enableProduct(Long id) {
-		// productRepository.deleteById(id);
 		Product product = productRepository.findById(id).get();
 		product.setActive(true);
 		productRepository.save(product);

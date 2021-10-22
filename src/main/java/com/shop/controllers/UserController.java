@@ -27,22 +27,16 @@ public class UserController {
 
 	@RequestMapping("/profile")
 	public String showProfile(Model model, @AuthenticationPrincipal MyUserDetails userDetails) {
-		String email = userDetails.getUsername();
-		User user = userService.getUserEmail(email);
-		List<Order> orders = orderService.getOrdersbyUser(user);
-
-		model.addAttribute("userData", user);
+		model.addAttribute("userData", userService.getUserEmail(email(userDetails)));
 		model.addAttribute("pageTitle", "Profile");
-		model.addAttribute("orders", orders);
-
+		model.addAttribute("orders", orders(userService.getUserEmail(email(userDetails))));
 		return "profile";
 	}
 
 	@PostMapping("/profile")
 	public String editUser(@ModelAttribute User userData, @AuthenticationPrincipal MyUserDetails userDetails,
 			Model model, RedirectAttributes redirectAttributes) {
-		String email = userDetails.getUsername();
-		User user = userService.getUserEmail(email);
+		User user = userService.getUserEmail(email(userDetails));
 		user.setLastName(userData.getLastName());
 		user.setFirstName(userData.getFirstName());
 		user.setTelefon(userData.getTelefon());
@@ -70,17 +64,28 @@ public class UserController {
 
 	@PostMapping("/register_done")
 	public String addUser(@ModelAttribute User userInfo) {
-		System.out.println(userInfo);
 		userService.addUser(userInfo);
 		return "redirect:/home";
-		// return "redirect:users";
 	}
 
 	// Temp
 	@RequestMapping("/users")
 	public String niceList(Model model) {
-		List<User> users = userService.getAllUsers();
-		model.addAttribute("usersId", users);
+		model.addAttribute("usersId", users());
 		return "users";
+	}
+
+	//////////////////////////////////////
+
+	public List<User> users() {
+		return userService.getAllUsers();
+	}
+
+	public String email(MyUserDetails userDetails) {
+		return userDetails.getUsername();
+	}
+
+	public List<Order> orders(User user) {
+		return orderService.getOrdersbyUser(user);
 	}
 }

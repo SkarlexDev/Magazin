@@ -1,7 +1,8 @@
 package com.shop.controllers;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.concurrent.TimeUnit;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,7 @@ import com.shop.services.OrderitemsService;
 import com.shop.services.UserService;
 import com.shop.struct.Order;
 import com.shop.struct.Orderitems;
+import com.shop.struct.Role;
 import com.shop.struct.User;
 
 @Controller
@@ -27,24 +29,38 @@ public class OrderHistoryController {
 	@Autowired
 	private OrderService orderService;
 
-	@GetMapping("/orderDetail/{userID}/{orderId}")
-	public String OderHistory(Model model, @PathVariable Long userID, @PathVariable Long orderId,
-			@AuthenticationPrincipal MyUserDetails userDetails) {
+	@GetMapping("/orderDetail/{orderId}")
+	public String OderHistory(Model model, @PathVariable String orderId,
+			@AuthenticationPrincipal MyUserDetails userDetails) throws InterruptedException {
 		try {
-			String email = userDetails.getUsername();
-			User user = userService.getUserEmail(email);
-			Optional<Order> order = orderService.getOrderId(orderId);
 
-			if (order.get().getUser().getId() != user.getId()) {
-				System.out.println("Incorrect user");
+			User user = userService.getUserEmail(userDetails.getUsername());
+			Order order = orderService.getOrderByorderID(orderId);
+			if (order.getUser().getId() != user.getId()) {
+				for (Role staff : user.getRoles()) {
+					if(staff.getName().contains("ADMIN"))
+					{
+						List<Orderitems> orders = orderitemsService.getById(order.getId());
+						model.addAttribute("order", order);
+						model.addAttribute("orders", orders);
+						model.addAttribute("ordId", orderId);
+						return "OrderDetails";
+					}
+				}
 				return "redirect:/profile";
 			}
-			List<Orderitems> orders = orderitemsService.getById(orderId);
+			List<Orderitems> orders = orderitemsService.getById(order.getId());
+			model.addAttribute("order", order);
 			model.addAttribute("orders", orders);
+			model.addAttribute("ordId", orderId);
 			return "OrderDetails";
+		} catch (NullPointerException e) {
+			System.out.println("File not exist");
+			return "redirect:/error";
+		
 		} catch (Exception e) {
-			return "redirect:/profile";
+			e.printStackTrace();
+			return "redirect:/error";
 		}
-
 	}
 }

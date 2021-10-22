@@ -26,6 +26,26 @@
 	padding-bottom: 20px;
 }
 
+.orderInfo {
+  width: 60%;
+  border-collapse: collapse;
+  border-width: 2px;
+  border-style: solid;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 2%;
+  margin-bottom: 2%;
+
+}
+
+.orderInfo td, .orderInfo th {
+  border-width: 2px;
+  border-style: solid;
+  padding: 10px;
+  text-align: center;
+}
+
+
 .submit-btn-user {
 	width: 55%;
 	padding: 10px 30px;
@@ -124,3 +144,29 @@
 	color: blue;
 }
 
+.ticket_buttons {
+	margin-top: 5%;
+	margin-left: auto;
+	margin-right: auto;
+    text-align: center;
+    justify-content: center;
+}
+
+.ticket_buttons a {
+	background-color: red;
+	padding: 20px;
+	font-size: 25px;
+	color: white;
+	border-radius: 25px;
+	opacity: 0.7;
+  	transition: 0.3s;
+}
+
+.ticket_buttons a:first-child {
+
+	background-color: green;
+
+}
+.ticket_buttons a:hover {
+	opacity: 1;
+}

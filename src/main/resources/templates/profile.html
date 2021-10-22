@@ -85,10 +85,11 @@
 								<!-- Istoric -->
 								<div th:each="entry,count : ${orders}">
 									<div class="istoric_list_Row">
-										<div class="istoric_list_Column" th:text="${count.index+1}"></div>
+										<!-- <div class="istoric_list_Column" th:text="${count.index+1}"></div>  -->
+										<div class="istoric_list_Column" th:text="${entry.orderID}"></div>
 										<div class="istoric_list_Column" th:text="${entry.totalPrice}"></div>
 										<div class="istoric_list_Column">										
-											<a th:href="@{/orderDetail/{userID}/{orderId}(userID=${entry.user.id}, orderId=${entry.id})}">View</a>
+											<a th:href="@{/orderDetail/{orderId}(orderId=${entry.orderID})}">View</a>
 											
 										</div>
 

@@ -9,5 +9,6 @@ import com.shop.struct.User;
 
 @Repository
 public interface OrderRepository extends CrudRepository<Order,Long>{
-	public List<Order> findByUser(User user);
+	public List<Order> findByUser(User user);	
+	public Order findByorderID(String orderID);
 }

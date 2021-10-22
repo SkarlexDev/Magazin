@@ -3,14 +3,46 @@
 <head th:replace="fragments/header :: header-css"></head>
 <body>
 	<div class="mainbody">
-	<div th:replace="fragments/header :: header"></div>
+		<div th:replace="fragments/header :: header"></div>
 		<div class="space_section"></div>
 		<div sec:authorize="isAuthenticated()">
 			<div class="order_panel">
 				<div class="user_info_panel">
-
-					<div class="center_bold">Detalii comanda</div>
-
+					<div class="center_bold">
+						Detalii comanda <span th:text="${ordId}"></span>
+					</div>
+					<table class="orderInfo">
+						<tbody>
+							<tr>
+								<td>Client</td>
+								<td><span th:text="${order.uName}"></span></td>
+							</tr>
+							<tr>
+								<td>Adresa</td>
+								<td><span th:text="${order.uAdresa}"></span></td>
+							</tr>
+							<tr>
+								<td>Judet</td>
+								<td><span th:text="${order.uJudet}"></span></td>
+							</tr>
+							<tr>
+								<td>Oras</td>
+								<td><span th:text="${order.uOras}"></span></td>
+							</tr>
+							<tr>
+								<td>CodPostal</td>
+								<td><span th:text="${order.uCodPostal}"></span></td>
+							</tr>
+							<tr>
+								<td>Telefon</td>
+								<td><span th:text="${order.uPhone}"></span></td>
+							</tr>
+							<tr>
+								<td>Email</td>
+								<td><span th:text="${order.uEmail}"></span></td>
+							</tr>
+						</tbody>
+					</table>
 					<div class="istoric">
 						<div class="Row">
 							<div class="Column">
@@ -32,24 +64,33 @@
 
 						<!-- Istoric -->
 						<div th:each="entry,count : ${orders}">
-							
+
 							<div class="istoric_list_Row">
 								<div class="istoric_list_Column" th:text="${count.index+1}"></div>
-								<div class="istoric_list_Column" th:text="${entry.product.productName}"></div>
+								<div class="istoric_list_Column"
+									th:text="${entry.product.productName}"></div>
 								<div class="istoric_list_Column" th:text="${entry.price}"></div>
 								<div class="istoric_list_Column" th:text="${entry.quantity}"></div>
 								<div class="istoric_list_Column">
-								<a th:href="@{/shop/{category}/{product}(category=${entry.product.category}, product=${entry.product.productlink})}">Link</a>
+									<a
+										th:href="@{/shop/{category}/{product}(category=${entry.product.category}, product=${entry.product.productlink})}">Link</a>
 								</div>
 
 							</div>
 						</div>
 						<!-- Istoric -->
 					</div>
-					</div>
 				</div>
 			</div>
+
+			<div class="ticket_buttons">
+			<a href="#">Mark As Solved</a>
+			<a href="#">Still Need Help</a>
+			<a href="#">Report Issue</a>
+			</div>
+
 		</div>
-	
+	</div>
+
 </body>
 </html>

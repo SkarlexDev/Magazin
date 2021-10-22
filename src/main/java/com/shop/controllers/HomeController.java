@@ -31,85 +31,75 @@ public class HomeController {
 
 	@GetMapping({ "/home", "/" })
 	public String getAllproducts(Model model, @AuthenticationPrincipal Authentication authentication) {
-		User user = user(authentication);
-
-		List<Product> products = productService.getAll();
-		List<CartItem> listCartItems = cartItemService.getCartItems(user);
-		BigDecimal totalPrice = totalPrice(listCartItems);
-
-		model.addAttribute("listCartItems", listCartItems);
-		model.addAttribute("products", products);
-		model.addAttribute("totalprice", totalPrice);
+		model.addAttribute("listCartItems", listCartItems(user(authentication)));
+		model.addAttribute("products", products());
+		model.addAttribute("totalprice", totalPrice(listCartItems(user(authentication))));
 		model.addAttribute("pageTitle", "Home");
-
 		return "index";
 	}
 
 	@GetMapping("/shop/{category}")
 	public String getCategory(@PathVariable String category, Model model,
 			@AuthenticationPrincipal Authentication authentication) {
-		User user = user(authentication);
-
-		List<Product> products = productService.getAllByCategory(category);
-		List<CartItem> listCartItems = cartItemService.getCartItems(user);
-
-		BigDecimal totalPrice = totalPrice(listCartItems);
-
-		model.addAttribute("listCartItems", listCartItems);
-		model.addAttribute("products", products);
+		model.addAttribute("listCartItems", listCartItems(user(authentication)));
+		model.addAttribute("products", products());
 		model.addAttribute("category", category);
-		model.addAttribute("totalprice", totalPrice);
+		model.addAttribute("totalprice", totalPrice(listCartItems(user(authentication))));
 		model.addAttribute("pageTitle", category);
-
 		return "index";
 	}
 
 	@GetMapping("/shop/{category}/{productlink}")
 	public String productPage(@PathVariable String category, @PathVariable String productlink, Model model) {
-		Product product = product(productlink);
-		model.addAttribute("productInfo", product);
-		model.addAttribute("pageTitle", product.getProductName());
+		model.addAttribute("productInfo", productLink(productlink));
+		model.addAttribute("pageTitle", productLink(productlink).getProductName());
 		return "item";
 	}
 
 	@GetMapping("/cart/add/{productlink}")
 	public String addToCart(@PathVariable String productlink, Model model,
 			@AuthenticationPrincipal Authentication authentication) {
-		User user = user(authentication);
-		Product product = product(productlink);
-		cartItemService.addProduct(product, user);
+		cartItemService.addProduct(productLink(productlink), user(authentication));
 		return "redirect:/home";
 	}
 
 	@GetMapping("/cart/remove/{productID}")
 	public String removeFromCart(@PathVariable long productID, Model model,
 			@AuthenticationPrincipal Authentication authentication) {
-		User user = user(authentication);
-		cartItemService.removeProduct(user.getId(), productID);
+		cartItemService.removeProduct(user(authentication), productId(productID));
 		return "redirect:/home";
 	}
 
 	@GetMapping("/cart/checkout")
 	public String checkout(Model model, @AuthenticationPrincipal Authentication authentication) {
-		User user = user(authentication);
-		cartItemService.checkout(user);
+		cartItemService.checkout(user(authentication));
 		return "redirect:/home";
 	}
 
-	// simplify
-	public User user(Authentication authentication) {
-		User user = userService.getLoggedUser(authentication);
-		return user;
+	//////////////////////////////////////
+
+	public List<Product> products() {
+		return productService.getAll();
 	}
 
-	public Product product(String productlink) {
-		Product product = productService.getByProductlink(productlink);
-		return product;
+	public List<CartItem> listCartItems(User user) {
+		return cartItemService.getCartItems(user);
+	}
+
+	public User user(Authentication authentication) {
+		return userService.getLoggedUser(authentication);
+	}
+
+	public Product productId(long id) {
+		return productService.getById(id).get();
+	}
+
+	public Product productLink(String productlink) {
+		return productService.getByProductlink(productlink);
 	}
 
 	public BigDecimal totalPrice(List<CartItem> listCartItems) {
 		BigDecimal totalPrice = new BigDecimal("0");
-
 		for (CartItem lci : listCartItems) {
 			String price = String.valueOf(lci.getProduct().getPrice() * lci.getQuantity());
 			totalPrice = totalPrice.add(new BigDecimal(price));

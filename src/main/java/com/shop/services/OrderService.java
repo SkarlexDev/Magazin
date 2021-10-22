@@ -23,4 +23,9 @@ public class OrderService {
 	public Optional<Order> getOrderId(long id) {
 		return orderRepository.findById(id);
 	}
+	
+	public Order getOrderByorderID(String orderID)
+	{
+		return orderRepository.findByorderID(orderID);
+	}
 }
