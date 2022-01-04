@@ -13,7 +13,7 @@ public class Product {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private int id;
 
 	@Column(name = "productlink", unique = true)
 	private String productlink;
@@ -36,11 +36,11 @@ public class Product {
 	@Column(name = "active")
 	private boolean active;
 
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

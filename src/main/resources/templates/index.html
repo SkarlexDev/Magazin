@@ -9,12 +9,12 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 		<div class="head_elem">
 			<div class="col-container">
 				<div class="vertical_info">
-					<p>Produse</p>
+					<p>Produse </p><h4 th:text="${categorycount}"></h4>
 					<div class="vertical-menu">
 						<a href="/shop/Telefoane">Telefoane</a> 
 						<a href="/shop/Televizoare">Televizoare</a>
-						<a href="/shop/laptopuri">laptopuri</a> 
-						<a href="#">Link 4</a> 
+						<a href="/shop/Laptopuri">Laptopuri</a> 
+						<a href="/shop/Jocuri">Jocuri</a> 
 					</div>
 				</div>
 				<div class="section col">
@@ -28,8 +28,8 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 		<div class="items_list">
 			<div class="container">
 				<!-- produs -->
-				<div th:each="product : ${products}" class="item">
-					<a th:if="${product.active} == true" class="itemcontainer" th:href="@{/shop/{category}/{product}(category=${product.category}, product=${product.productlink})}">
+				<div th:each="product : ${products}" class="item" th:if="${product.active} == true"> 
+					<a class="itemcontainer" th:href="@{/shop/{category}/{product}(category=${product.category}, product=${product.productlink})}">
 						<img class="inner_image" th:src="${product.imageURL}"
 								alt="Descriere">
 						<h2 class="nume_produs_link" th:text="${product.productName}"></h2>

@@ -8,7 +8,7 @@ import com.shop.struct.Order;
 import com.shop.struct.User;
 
 @Repository
-public interface OrderRepository extends CrudRepository<Order,Long>{
+public interface OrderRepository extends CrudRepository<Order,Integer>{
 	public List<Order> findByUser(User user);	
 	public Order findByorderID(String orderID);
 }

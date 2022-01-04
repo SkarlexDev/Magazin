@@ -30,6 +30,7 @@ public class UserController {
 		model.addAttribute("userData", userService.getUserEmail(email(userDetails)));
 		model.addAttribute("pageTitle", "Profile");
 		model.addAttribute("orders", orders(userService.getUserEmail(email(userDetails))));
+		model.addAttribute("totalordercount", userService.GET_TOTAL_ORDERS_BY_USER(userService.getUserEmail(email(userDetails)).getId()));
 		return "profile";
 	}
 

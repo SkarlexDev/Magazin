@@ -14,7 +14,7 @@ public class OrderitemsService {
 	@Autowired
 	private OrderitemsRepository orderitemsRepository;
 
-	public List<Orderitems> getById(Long orderId) {
+	public List<Orderitems> getById(int orderId) {
 		return orderitemsRepository.findByorderId(orderId);
 	}
 }

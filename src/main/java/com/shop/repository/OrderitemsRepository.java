@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import com.shop.struct.Orderitems;
 
-public interface OrderitemsRepository extends CrudRepository<Orderitems, Long> {
+public interface OrderitemsRepository extends CrudRepository<Orderitems, Integer> {
 
-	public List<Orderitems> findByorderId(Long orderId);
+	public List<Orderitems> findByorderId(int orderId);
 }

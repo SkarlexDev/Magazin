@@ -59,22 +59,31 @@ public class UserService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		User user = userRepository.findUserByEmail(email);
-
 		if (user == null) {
 			throw new UsernameNotFoundException("Could not find user");
 		}
-
 		return new MyUserDetails(user);
 	}
-
+	
 	public User getLoggedUser(Authentication authentication) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		User user = null;
 		if (principal instanceof UserDetails) {
 			String email = ((UserDetails) principal).getUsername();
 			user = userRepository.findUserByEmail(email);
+			//System.out.println(userRepository.findUserByEmails(email));
 		}
 		return user;
+	}
+	
+	public int GET_TOTAL_ORDERS_BY_USER(int user_u_id) {		
+		return userRepository.GET_TOTAL_ORDERS_BY_USER(user_u_id);
+	}
+	
+	public String CHANGE_PASSWORD(int user_u_id, String newPw)
+	{
+		return userRepository.CHANGE_PASSWORD(user_u_id, newPw);
+		
 	}
 
 }

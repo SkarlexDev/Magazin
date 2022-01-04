@@ -25,7 +25,8 @@
 	justify-content: center;
 	align-items: center;
 }
-.disabled_item{
+
+.disabled_item {
 	background-color: black;
 	width: 10%;
 	opacity: 80%;
@@ -35,15 +36,13 @@
 	line-height: 170px;
 	text-indent: 30%;
 	margin: 10px auto;
-	
 }
 
-.disabled_item p{
+.disabled_item p {
 	color: red;
 	opacity: 200%;
 	transform: rotate(45deg);
 	font-size: 30px;
-	
 }
 
 .button_link {
@@ -80,11 +79,12 @@
 }
 
 .inner_image {
-	width: 140px;
-	height: 140px;
+	width: 65%;
+	height: 40%;
 	margin-left: auto;
 	margin-right: auto;
 	display: block;
+	padding: 5%;
 }
 
 .inner_image_add {
@@ -99,7 +99,8 @@
 
 .nume_produs_link {
 	font-size: 15px;
-	font-family: metawp, Trebuchet MS, Helvetica Neue, Helvetica, Arial, sans-serif;
+	font-family: metawp, Trebuchet MS, Helvetica Neue, Helvetica, Arial,
+		sans-serif;
 	text-align: center;
 	padding-bottom: 20px;
 	height: 60px;
@@ -118,6 +119,7 @@
 	color: red;
 	font-size: 30px;
 }
+
 .container_item_page {
 	margin-top: 20px;
 	width: 50%;
@@ -128,33 +130,36 @@
 	background: white;
 	height: 100%;
 	margin-bottom: 20px;
-	display:table;
+	display: table;
 }
 
 .leftDiv {
-	height: 400px;
+	height: 60%;
 	width: 70%;
 	float: left;
 }
-.leftDiv img{
-	width: 500px;
-	height: 500px;
+
+.leftDiv img {
+	width: 70%;
+	height: 100%;
 	margin: auto;
-  	display: block;
+	display: block;
+	padding: 10%;
 }
+
 .rightDiv {
 	height: 400px;
 	width: 20%;
 	float: right;
 	margin-right: 5%;
-}	
-.top-item-data{
-	display: block;
-	justify-content:space-between;
-
-	
 }
-.right_item_data{
+
+.top-item-data {
+	display: block;
+	justify-content: space-between;
+}
+
+.right_item_data {
 	padding: 0;
 	text-align: center;
 	font-size: 30px;
@@ -162,33 +167,35 @@
 	margin-top: 70%;
 	background-color: white;
 	border: 1px solid black;
-
 }
+
 .right_item_data button {
-  border: none;
-  outline: 0;
-  padding: 12px;
-  color: white;
-  background-color: red;
-  text-align: center;
-  cursor: pointer;
-  width: 100%;
-  font-size: 18px;
-  margin-top: 10%;
+	border: none;
+	outline: 0;
+	padding: 12px;
+	color: white;
+	background-color: red;
+	text-align: center;
+	cursor: pointer;
+	width: 100%;
+	font-size: 18px;
+	margin-top: 10%;
+}
+.description_item{
+	padding: 10%;
+	padding-top: 5%;
+	margin-top: 70%;
+}
+.description_item h2 {
+	text-align: center;
 }
 
-.description_item h2{
-	text-align: center;
-	
-}
-.description_item p{
+.description_item p {
 	margin: 5%;
-	
 }
+
 .space_null {
 	width: 100%;
 	float: left;
 	height: 100px;
 }
-
-		

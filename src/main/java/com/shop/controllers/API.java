@@ -28,7 +28,7 @@ public class API {
 	}
 
 	@RequestMapping("/api/users/{id}")
-	public Optional<User> getUser(@PathVariable Long id) {
+	public Optional<User> getUser(@PathVariable int id) {
 		return userService.getUserId(id);
 	}
 
@@ -38,7 +38,7 @@ public class API {
 	}
 
 	@RequestMapping("/api/products/{id}")
-	public Optional<Product> getProduct(@PathVariable Long id) {
+	public Optional<Product> getProduct(@PathVariable int id) {
 		return productService.getById(id);
 	}
 
@@ -59,11 +59,13 @@ public class API {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		String encoded = encoder.encode(newPW);
 		User user = userService.getUserEmail(id);
-		System.out.println(user.getFirstName() + user.getEmail());
-		user.setPassword(encoded);
-		userService.updateUser(user);
-
-		return "NewPW: " + newPW + " Encoded: " + encoded;
+		/* 
+		 * temp disable
+		 * user.setPassword(encoded);
+		 * userService.updateUser(user);
+		 */
+		userService.CHANGE_PASSWORD(user.getId(), encoded);
+		return "NewPW: " + newPW + "<br>" +" Encoded: " + encoded;
 	}
 
 }

@@ -23,6 +23,10 @@ public class ProductController {
 	public String adminPanel(Model model) {
 		model.addAttribute("products", products());
 		model.addAttribute("pageTitle", "Admin");
+		model.addAttribute("totalproducts", productService.GET_TOTAL_PRODUCTS());
+		model.addAttribute("totalproductsdisabled", productService.GET_TOTAL_PRODUCTS_DISABLED());
+		System.out.println(productService.GET_TOTAL_PRODUCTS());
+		System.out.println(productService.GET_TOTAL_PRODUCTS_DISABLED());
 		return "admin";
 	}
 
@@ -66,7 +70,7 @@ public class ProductController {
 	}
 
 	@GetMapping("admin/product/edit/{id}")
-	public String editProduct(@PathVariable Long id, Model model) {
+	public String editProduct(@PathVariable int id, Model model) {
 		model.addAttribute("productInfo", productId(id));
 		model.addAttribute("method", "edit");
 		model.addAttribute("pageTitle", "Edit");
@@ -74,7 +78,7 @@ public class ProductController {
 	}
 
 	@PostMapping("admin/product/edit/{id}")
-	public String postEditProduct(@PathVariable Long id, Model model,
+	public String postEditProduct(@PathVariable int id, Model model,
 			@ModelAttribute("productInfo") Product productInfo) {
 		try {
 			productInfo.setProductlink(productInfo.getProductName().replaceAll(" ", "_").replaceAll("-", "")
@@ -91,13 +95,13 @@ public class ProductController {
 	}
 
 	@GetMapping("admin/product/disable/d/{id}")
-	public String disableProduct(@PathVariable Long id) {
+	public String disableProduct(@PathVariable int id) {
 		productService.disableProduct(id);
 		return "redirect:/admin";
 	}
 
 	@GetMapping("admin/product/enable/e/{id}")
-	public String enableProduct(@PathVariable Long id) {
+	public String enableProduct(@PathVariable int id) {
 		productService.enableProduct(id);
 		return "redirect:/admin";
 	}
@@ -108,7 +112,7 @@ public class ProductController {
 		return productService.getAll();
 	}
 
-	public Product productId(long id) {
+	public Product productId(int id) {
 		return productService.getById(id).get();
 	}
 

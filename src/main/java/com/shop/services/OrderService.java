@@ -20,7 +20,7 @@ public class OrderService {
 		return orderRepository.findByUser(user);
 	}
 
-	public Optional<Order> getOrderId(long id) {
+	public Optional<Order> getOrderId(int id) {
 		return orderRepository.findById(id);
 	}
 	

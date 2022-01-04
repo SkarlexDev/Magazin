@@ -13,7 +13,7 @@ import javax.persistence.Table;
 public class CartItem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private int id;
 
 	@ManyToOne
 	@JoinColumn(name = "product_id")
@@ -25,11 +25,11 @@ public class CartItem {
 
 	private int quantity;
 
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

@@ -28,19 +28,18 @@ public class CartItemService {
 	}
 
 	public void addProduct(Product product, User user) {
-		CartItem cartItem = cartItemRepository.findByUserAndProduct(user, product);
+		CartItem cartItem = cartItem(user, product);
 
 		if (cartItem == null) {
 			cartItem = new CartItem();
 			cartItem.setProduct(product);
 			cartItem.setUser(user);
 		}
-		List<CartItem> listCartItems = cartItemRepository.findByUser(user);
 
 		boolean singleitem = true;
 
-		for (CartItem lci : listCartItems) {
-			if (lci.getProduct().getId().equals(cartItem.getProduct().getId())) {
+		for (CartItem lci : listCartItems(user)) {
+			if (lci.getProduct().getId()==(cartItem.getProduct().getId())) {
 				cartItem.setQuantity(cartItem.getQuantity() + 1);
 				singleitem = false;
 			}
@@ -53,10 +52,10 @@ public class CartItemService {
 	}
 
 	public void removeProduct(User user, Product product) {
-		CartItem cartItem = cartItemRepository.findByUserAndProduct(user, product);
-		List<CartItem> listCartItems = cartItemRepository.findByUser(user);
-		for (CartItem lci : listCartItems) {
-			if (lci.getProduct().getId().equals(cartItem.getProduct().getId())) {
+		CartItem cartItem = cartItem(user, product);
+		
+		for (CartItem lci : listCartItems(user)) {
+			if (lci.getProduct().getId()==(cartItem.getProduct().getId())) {
 				if (cartItem.getQuantity() == 1) {
 					cartItemRepository.deleteByUserAndProduct(user.getId(), product.getId());
 				} else {
@@ -68,12 +67,12 @@ public class CartItemService {
 	}
 
 	public void checkout(User user) {
-		List<CartItem> listCartItems = cartItemRepository.findByUser(user);
-		if (listCartItems.size() != 0) {
+		
+		if (listCartItems(user).size() != 0) {
 			Order order = new Order(user);
 			orderRepository.save(order);
 			double totalprice = 0;
-			for (CartItem lci : listCartItems) {
+			for (CartItem lci : listCartItems(user)) {
 				double price = lci.getProduct().getPrice() * lci.getQuantity();
 				Orderitems oi = new Orderitems(lci.getId(), lci.getQuantity(), price, order.getId(), order,
 						lci.getProduct());
@@ -87,6 +86,18 @@ public class CartItemService {
 			orderRepository.save(order);
 			cartItemRepository.deleteByUser(user.getId());
 		}
+	}
+	
+	//////////////////////////////////////
+	
+	public CartItem cartItem(User user, Product product)
+	{
+		return cartItemRepository.findByUserAndProduct(user, product);
+	}
+	
+	public List<CartItem> listCartItems(User user)
+	{
+		return cartItemRepository.findByUser(user);
 	}
 
 }

@@ -15,7 +15,7 @@ import com.shop.struct.Product;
 import com.shop.struct.User;
 
 @Repository
-public interface CartItemRepository extends CrudRepository<CartItem, Long> {
+public interface CartItemRepository extends CrudRepository<CartItem, Integer> {
 
 	public List<CartItem> findByUser(User user);
 	public CartItem findByUserAndProduct(User user, Product product);
@@ -23,10 +23,10 @@ public interface CartItemRepository extends CrudRepository<CartItem, Long> {
 	@Transactional
 	@Modifying
 	@Query("DELETE FROM CartItem c WHERE c.user.id = :userID AND c.product.id = :productID")
-	public void deleteByUserAndProduct(@Param("userID") Long userID,@Param("productID") Long productID);
+	public void deleteByUserAndProduct(@Param("userID") int userID,@Param("productID") int productID);
 	
 	@Transactional
 	@Modifying
 	@Query("DELETE FROM CartItem c WHERE c.user.id = :userID")
-	public void deleteByUser(Long userID);
+	public void deleteByUser(int userID);
 }

@@ -35,6 +35,7 @@ public class HomeController {
 		model.addAttribute("products", products());
 		model.addAttribute("totalprice", totalPrice(listCartItems(user(authentication))));
 		model.addAttribute("pageTitle", "Home");
+		model.addAttribute("categorycount", productService.GET_TOTAL_CATEGORY());
 		return "index";
 	}
 
@@ -42,10 +43,11 @@ public class HomeController {
 	public String getCategory(@PathVariable String category, Model model,
 			@AuthenticationPrincipal Authentication authentication) {
 		model.addAttribute("listCartItems", listCartItems(user(authentication)));
-		model.addAttribute("products", products());
+		model.addAttribute("products", products(category));
 		model.addAttribute("category", category);
 		model.addAttribute("totalprice", totalPrice(listCartItems(user(authentication))));
 		model.addAttribute("pageTitle", category);
+		model.addAttribute("categorycount", productService.GET_TOTAL_CATEGORY());
 		return "index";
 	}
 
@@ -64,7 +66,7 @@ public class HomeController {
 	}
 
 	@GetMapping("/cart/remove/{productID}")
-	public String removeFromCart(@PathVariable long productID, Model model,
+	public String removeFromCart(@PathVariable int productID, Model model,
 			@AuthenticationPrincipal Authentication authentication) {
 		cartItemService.removeProduct(user(authentication), productId(productID));
 		return "redirect:/home";
@@ -90,7 +92,7 @@ public class HomeController {
 		return userService.getLoggedUser(authentication);
 	}
 
-	public Product productId(long id) {
+	public Product productId(int id) {
 		return productService.getById(id).get();
 	}
 
@@ -105,6 +107,10 @@ public class HomeController {
 			totalPrice = totalPrice.add(new BigDecimal(price));
 		}
 		return totalPrice;
+	}
+	public List<Product> products(String category){
+		
+		return productService.getAllByCategory(category);
 	}
 
 }

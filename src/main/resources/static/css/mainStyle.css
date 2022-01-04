@@ -18,6 +18,11 @@ html {
 	background-size: cover;
 }
 
+h4{
+	text-align: center;
+	padding-bottom: 5px;
+}
+
 body {
 	font: 14px Arial, sans-serif;
 	margin: 0px;

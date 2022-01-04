@@ -29,7 +29,7 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 						<div class="description">
 							<a
 								th:href="@{/shop/{category}/{product}(category=${item.category}, product=${item.productlink})}">
-								<span th:text="${item.productName}"></span>
+								<span class="shopping-cart-content-item-name" th:text="${item.productName}"></span>
 							</a>
 						</div>
 						<div class="cart-item-quantity">
@@ -37,7 +37,7 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 						<span th:text="${entry.quantity}"></span>
 						</div>
 						<div class="total-price">
-							<span th:text="${item.price*entry.quantity}"></span> <span>lei</span>
+							<span th:text="${item.price*entry.quantity}"></span><br><span>lei</span>
 						</div>
 					</div>
 

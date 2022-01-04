@@ -8,6 +8,7 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 			<div class="col-container">
 				<div class="section col">
 					<h2>Admin Zone</h2>
+					<h3>Products: <span th:text="${totalproducts}"></span> / Disabled: <span th:text="${totalproductsdisabled}"></span></h3>
 				</div>
 			</div>
 		</div>
@@ -40,8 +41,7 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 								<span th:text="${product.price}"></span> <span>lei</span>
 						</div>
 						<div class="item_options">
-						<a th:href="@{/admin/product/edit/{id}(id=${product.id})}" class="button_link">Edit</a>
-						
+						<a th:href="@{/admin/product/edit/{id}(id=${product.id})}" class="button_link">Edit</a>						
 						<a th:if="${product.active} == true" th:href="@{/admin/product/disable/d/{id}(id=${product.id})}" class="button_link">Disable</a>
 						<a th:if="${product.active} == false" th:href="@{/admin/product/enable/e/{id}(id=${product.id})}" class="button_link_disabled">Enable</a>
 						</div>

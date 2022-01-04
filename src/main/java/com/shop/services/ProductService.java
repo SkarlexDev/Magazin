@@ -22,7 +22,7 @@ public class ProductService {
 		return products;
 	}
 
-	public Optional<Product> getById(Long id) {
+	public Optional<Product> getById(int id) {
 		return productRepository.findById(id);
 	}
 
@@ -47,16 +47,31 @@ public class ProductService {
 		productRepository.save(product);
 	}
 
-	public void disableProduct(Long id) {
+	public void disableProduct(int id) {
 		Product product = productRepository.findById(id).get();
 		product.setActive(false);
 		productRepository.save(product);
 	}
 
-	public void enableProduct(Long id) {
+	public void enableProduct(int id) {
 		Product product = productRepository.findById(id).get();
 		product.setActive(true);
 		productRepository.save(product);
+	}
+	
+	public int GET_TOTAL_PRODUCTS()
+	{
+		return productRepository.GET_TOTAL_PRODUCTS();
+	}
+	
+	public int GET_TOTAL_PRODUCTS_DISABLED()
+	{
+		return productRepository.GET_TOTAL_PRODUCTS_DISABLED();
+	}
+	
+	public int GET_TOTAL_CATEGORY()
+	{
+		return productRepository.GET_TOTAL_CATEGORY();
 	}
 
 }

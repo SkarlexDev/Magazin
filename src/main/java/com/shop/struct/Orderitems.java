@@ -16,10 +16,10 @@ public class Orderitems {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private int id;
 
 	@Column(name = "productId", insertable = false, updatable = false)
-	private Long productId;
+	private int productId;
 
 	@Column(name = "quantity")
 	private int quantity;
@@ -28,7 +28,7 @@ public class Orderitems {
 	private double price;
 
 	@Column(name = "order_id", insertable = false, updatable = false)
-	private Long orderId;
+	private int orderId;
 
 	@ManyToOne
 	@JoinColumn(name = "order_id")
@@ -37,12 +37,12 @@ public class Orderitems {
 	@OneToOne
 	@JoinColumn(name = "productId")
 	private Product product;
-
+	
 	public Orderitems() {
 		super();
 	}
 
-	public Orderitems(Long productId, int quantity, double price, Long orderId, Order order, Product product) {
+	public Orderitems(int productId, int quantity, double price, int orderId, Order order, Product product) {
 		super();
 		this.productId = productId;
 		this.quantity = quantity;
@@ -52,11 +52,11 @@ public class Orderitems {
 		this.product = product;
 	}
 
-	public Long getProductId() {
+	public int getProductId() {
 		return productId;
 	}
 
-	public void setProductId(Long productId) {
+	public void setProductId(int productId) {
 		this.productId = productId;
 	}
 
@@ -76,11 +76,11 @@ public class Orderitems {
 		this.price = price;
 	}
 
-	public Long getOrderId() {
+	public int getOrderId() {
 		return orderId;
 	}
 
-	public void setOrderId(Long orderId) {
+	public void setOrderId(int orderId) {
 		this.orderId = orderId;
 	}
 
