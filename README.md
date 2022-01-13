@@ -2,7 +2,7 @@
 Digital proiect
 
 
-Tools and tech used
+Tools and tech used:
 Java 17.0.1
 Spring Boot
 Spring MVC
@@ -14,7 +14,7 @@ MySQL
 Eclipse IDE
 
 DataBase:
-magazin_demo.roles
+magazin_demo.roles:
 '1', 'CREATOR'
 '2', 'ADMIN'
 '3', 'SUPPORT'
