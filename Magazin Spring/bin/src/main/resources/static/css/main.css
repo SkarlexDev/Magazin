@@ -1,0 +1,160 @@
+body {
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    url(https://wallpapercave.com/wp/wp5515025.jpg) no-repeat center center
+      fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+.mainbody {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+}
+
+nav {
+  position: sticky !important;
+  width: 100%;
+}
+
+.container {
+  background-color: white;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.container-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.container-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.lgi:hover {
+  color: white;
+  background-color: darksalmon;
+}
+
+.item-list a {
+  text-decoration: none;
+}
+
+.item-list p {
+  color: black;
+}
+
+p.price-item {
+  color: red;
+  font-size: large;
+}
+
+.btn-cart {
+  height: fit-content;
+}
+
+hr {
+  width: 100%;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  height: 36px;
+  margin: 4px auto;
+  padding-left: 10px;
+  border: solid 1px #cbc9c9;
+  box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.09);
+  background: #fff;
+}
+
+#submitButton {
+  width: 100%;
+  padding: 10px 0;
+  margin: 10px auto;
+  border-radius: 5px;
+  border: none;
+  background: #1c87c9;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+}
+
+#submitButton:hover {
+  background: #26a9e0;
+}
+
+.album {
+  width: 100%;
+  height: 100%;
+}
+
+.disabled_item{
+	position: absolute;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0,0.5);
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+.disabled_item p{
+	color: wheat;
+	font-size: 40px;
+	transform: rotate(330deg);
+}
+.admin_item_control{
+	justify-content: center;
+    align-items: center;
+    display: flex;
+    position: relative;
+    z-index: 2;
+    gap: 10px;
+}
+input[type="text"]{
+	width: 100% !important;
+}
+
+input[type="password"]{
+	width: 100% !important;
+}
+
+button, select {
+    text-transform: none;
+    background-color: transparent;
+    border: 0;
+}
+
+/* ===== Scrollbar CSS ===== */
+  /* Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #000000 #ffffff;
+  }
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 14px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #ffffff;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #000000;
+    border-radius: 10px;
+    border: 3px solid #ffffff;
+  }

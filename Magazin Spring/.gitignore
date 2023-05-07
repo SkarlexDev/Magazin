@@ -1,0 +1,47 @@
+# IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Gradle
+.gradle/
+build/
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Eclipse
+.classpath
+.project
+.settings/
+target/
+
+# Maven
+target/
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# Spring Boot
+*.log
+logs/
+target/
+mvnw
+mvnw.cmd
+mvnw.bat
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Others
+*.DS_Store
+*.bak
+*.tmp

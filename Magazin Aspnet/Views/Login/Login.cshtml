@@ -1,0 +1,37 @@
+﻿@page "/login"
+@model User
+@inject IUserService UserService
+<head>
+   <link rel="stylesheet" href="~/css/accountRL.css" />
+</head>
+<div class="panel-container">
+   <div class="main-block">
+      <h1>Login</h1>
+      @if (!string.IsNullOrEmpty(ViewBag.Error))
+      {
+      <div>Invalid @ViewBag.Error.</div>
+      }
+      @if (!string.IsNullOrEmpty(TempData["SuccessMessage"] as string))
+      {
+      <div>@TempData["SuccessMessage"]</div>
+      }
+      <form id="loginForm" method="post" asp-action="Login">
+         <hr />
+         <div class="form-group row">
+            <div class="col-sm-12">
+               <input type="text" name="username" required class="form-control" placeholder="Username" />
+            </div>
+         </div>
+         <div class="form-group row">
+            <div class="col-sm-12">
+               <input type="password" name="password" required class="form-control" placeholder="Password" />
+            </div>
+         </div>
+         <hr />
+         <button type="submit" id="submitButton">Login</button>
+         <div style="display: flex; justify-content: center; align-items: center; padding: 10px;">
+            <a href="/register" style="text-decoration: revert">Register</a>
+         </div>
+      </form>
+   </div>
+</div>

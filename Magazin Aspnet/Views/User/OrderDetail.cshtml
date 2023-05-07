@@ -1,0 +1,70 @@
+﻿@{
+    var order = ViewData["Order"] as Order;
+}
+
+<div style="width: -webkit-fill-available; margin: 0px 20% 0px 20%;">
+    <div class="card" style="width: 100%;">
+        <div class="card-header bg-primary text-white">
+            Order Information
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-bordered" style="margin-bottom: 0;">
+                <tbody>
+                    <tr>
+                        <th scope="row">Client</th>
+                        <td><span>@order.UserFullName</span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Address</th>
+                        <td><span>@order.UserAddress</span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">State</th>
+                        <td><span>@order.UserState</span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">City</th>
+                        <td><span>@order.UserCity</span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Zip</th>
+                        <td><span>@order.UserZip</span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Phone</th>
+                        <td><span>@order.UserPhone</span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Email</th>
+                        <td><span>@order.UserEmail</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <ul class="list-group" style="overflow-y: auto; max-height: 500px;">
+        <li class="list-group-item sticky-top">
+            <div class="row font-weight-bold">
+                <div class="col-md-1">No.</div>
+                <div class="col-md-6">Product</div>
+                <div class="col-md-3">Price</div>
+                <div class="col-md-2">Quantity</div>
+            </div>
+        </li>
+        @{int count = 1;}
+        @foreach (var entry in order.OrderItems)
+        {
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="col-md-1">@(count ++)</div>
+                    <div class="col-md-6">
+                        <a href="@Url.Action("Product", "Home", new { category = entry.Product.Category, product = entry.Product.ProductLink })">@entry.Product.ProductName</a>
+                    </div>
+                    <div class="col-md-3">@entry.Price</div>
+                    <div class="col-md-2">@entry.Quantity</div>                    
+                </div>
+            </li>
+        }
+    </ul>
+</div>

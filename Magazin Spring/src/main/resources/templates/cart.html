@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="https://www.thymeleaf.org"
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+  <head th:insert="fragments/head :: header"></head>
+  <body>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.3/bootbox.js"></script>
+    <div class="mainbody">
+    <div th:replace="fragments/head :: nav"></div>
+    <div sec:authorize="isAuthenticated()">
+      <section class="h-100 gradient-custom">
+        <div class="container">
+          <div th:if="${#lists.isEmpty(listCartItems)}">
+            The cart is empty.
+          </div>
+          <div th:unless="${#lists.isEmpty(listCartItems)}">
+            <div class="row d-flex justify-content-center my-4" style="width:
+              100%;">
+              <div class="col-md-8">
+                <div class="card-header py-3">
+                  <h5 class="mb-0">Cart</h5>
+                </div>
+                <div class="card mb-4">
+                  <div class="card-body">
+                    <div th:each="entry : ${listCartItems}">
+                      <!-- Single item -->
+                      <div class="row" th:with="item= ${entry.product}">
+                        <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
+                          <!-- Image -->
+                          <div
+                            class="bg-image hover-overlay hover-zoom ripple
+                            rounded"
+                            data-mdb-ripple-color="light">
+                            <a
+                              th:href="@{/shop/{category}/{product}(category=${item.category},
+                              product=${item.productlink})}">
+                              <img th:src="${item.imageURL}" class="w-100" />
+                            </a>
+                          </div>
+                          <!-- Image -->
+                        </div>
+
+                        <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
+                          <!-- Data -->
+                          <p><strong th:text="${item.productName}"></strong></p>
+                          <button
+                            type="button"
+                            th:onclick="'removeItem(\'' + ${item.id} + '\',\'' +
+                            ${entry.quantity} + '\');'"
+                            class="btn btn-primary btn-sm me-1 mb-2"
+                            data-mdb-toggle="tooltip"
+                            title="Remove item">
+                            <i class="fas fa-trash"></i>
+                          </button>
+                          <!-- Data -->
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                          <!-- Quantity -->
+                          <div class="d-flex mb-4" style="max-width: 300px">
+                            <button
+                              class="btn btn-primary px-3 me-2 btn-cart"
+                              th:onclick="'changeQuantity(\'' + ${item.id} +
+                              '\',
+                              this.parentNode, 0);'">
+                              <i class="fas fa-minus"></i>
+                            </button>
+
+                            <div class="form-outline">
+                              <input
+                                min="0"
+                                name="quantity"
+                                th:value="${entry.quantity}"
+                                type="number"
+                                class="form-control"
+                                disabled
+                                style="text-align: center"
+                                />
+                            </div>
+
+                            <button
+                              class="btn btn-primary px-3 ms-2 btn-cart"
+                              th:onclick="'changeQuantity(\'' + ${item.id} +
+                              '\',
+                              this.parentNode, 1);'">
+                              <i class="fas fa-plus"></i>
+                            </button>
+                          </div>
+                          <!-- Quantity -->
+
+                          <!-- Price -->
+                          <p class="text-start text-md-center">
+                            <span class="px-1">Price:</span>
+                            <strong th:text="${item.price}">0</strong>
+                          </p>
+                          <p class="text-start text-md-center">
+                            <span class="px-1">Total:</span>
+                            <strong th:text="${item.price*entry.quantity}">0</strong>
+                          </p>
+                          <!-- Price -->
+                        </div>
+                      </div>
+                      <!-- Single item -->
+
+                      <hr class="my-4" />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card mb-4 mb-lg-0">
+                  <div class="card-body">
+                    <p><strong>We accept</strong></p>
+                    <img
+                      class="me-2"
+                      width="45px"
+                      src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/visa.svg"
+                      alt="Visa"
+                      />
+                    <img
+                      class="me-2"
+                      width="45px"
+                      src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/amex.svg"
+                      alt="American Express"
+                      />
+                    <img
+                      class="me-2"
+                      width="45px"
+                      src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/mastercard.svg"
+                      alt="Mastercard"
+                      />
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="card mb-4">
+                  <div class="card-header py-3">
+                    <h5 class="mb-0">Invoice</h5>
+                  </div>
+                  <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                      <li
+                        class="list-group-item d-flex justify-content-between
+                        align-items-center border-0 px-0 pb-0">
+                        Products
+                        <span th:text="${totalprice}">0</span>
+                      </li>
+                      <li
+                        class="list-group-item d-flex justify-content-between
+                        align-items-center px-0">
+                        Transport
+                        <span>Free</span>
+                      </li>
+                      <li
+                        class="list-group-item d-flex justify-content-between
+                        align-items-center border-0 px-0 mb-3">
+                        <div>
+                          <strong>Total</strong>
+                        </div>
+                        <span><strong th:text="${totalprice}">0</strong></span>
+                      </li>
+                    </ul>
+                    <button onclick="location.href='/cart/checkout'"
+                      type="button"
+                      class="btn btn-primary btn-lg btn-block">
+                      Checkout
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+    </div>
+    </div>
+  </body>
+  <script>
+    function changeQuantity(id, input, operation) {
+      input = input.querySelector("input[type=number]");
+      var t = input.value;
+      if (operation == 0) {
+        if (t == 1) {
+          var dialog = bootbox.dialog({
+            message: "Remove product ?",
+            size: "sm",
+            closeButton: false,
+            buttons: {
+              remove: {
+                label: "Remove",
+                className: "btn-danger",
+                callback: function () {
+                  input.stepDown();
+                  deleteItem(id);
+                },
+              },
+              cancel: {
+                label: "Cancel",
+                className: "btn-secondary",
+              },
+            },
+          });
+        } else {
+          input.stepDown();
+          deleteItem(id);
+        }
+      } else {
+        input.stepUp();
+        addItem(id);
+      }
+    }
+
+    function deleteItem(productID) {
+      var url = "/cart/remove/" + productID;
+      $.ajax({
+        url: url,
+        type: "POST",
+        success: function (res) {
+          location.reload();
+        },
+      });
+    }
+
+    function addItem(productID) {
+      var url = "/cart/add/" + productID;
+      $.ajax({
+        url: url,
+        type: "POST",
+        success: function (res) {
+          location.reload();
+        },
+      });
+    }
+    function removeItem(id, quantity) {
+      var url = "/cart/removeProduct/" + id + "/" + quantity;
+      var dialog = bootbox.dialog({
+        message: "Remove product ?",
+        size: "sm",
+        closeButton: false,
+        buttons: {
+          remove: {
+            label: "Remove",
+            className: "btn-danger",
+            callback: function () {
+              $.ajax({
+                url: url,
+                type: "POST",
+                success: function (res) {
+                  location.reload();
+                },
+              });
+            },
+          },
+          cancel: {
+            label: "Cancel",
+            className: "btn-secondary",
+          },
+        },
+      });
+    }
+  </script>
+</html>

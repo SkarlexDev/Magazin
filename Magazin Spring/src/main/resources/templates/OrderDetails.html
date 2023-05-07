@@ -1,0 +1,83 @@
+<html xmlns:th="https://www.thymeleaf.org"
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+  <head th:replace="fragments/head :: header"></head>
+  <body>
+    <div class="mainbody">
+      <div th:replace="fragments/head :: nav"></div>
+      <div class="space_section"></div>
+      <div sec:authorize="isAuthenticated()" style="width:
+        -webkit-fill-available;margin: 0px 20% 0px 20%;">
+
+        <div class="card" style="width: 100%;">
+          <div class="card-header bg-primary text-white">
+            Order Information
+          </div>
+          <div class="card-body p-0">
+            <table class="table table-bordered" style="margin-bottom: 0;">
+              <tbody>
+                <tr>
+                  <th scope="row">Client</th>
+                  <td><span th:text="${order.uFullName}"></span></td>
+                </tr>
+                <tr>
+                  <th scope="row">Address</th>
+                  <td><span th:text="${order.uAddress}"></span></td>
+                </tr>
+                <tr>
+                  <th scope="row">State</th>
+                  <td><span th:text="${order.uState}"></span></td>
+                </tr>
+                <tr>
+                  <th scope="row">City</th>
+                  <td><span th:text="${order.uCity}"></span></td>
+                </tr>
+                <tr>
+                  <th scope="row">Zip</th>
+                  <td><span th:text="${order.uZip}"></span></td>
+                </tr>
+                <tr>
+                  <th scope="row">Phone</th>
+                  <td><span th:text="${order.uPhone}"></span></td>
+                </tr>
+                <tr>
+                  <th scope="row">Email</th>
+                  <td><span th:text="${order.uEmail}"></span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <ul class="list-group" style="overflow-y: auto; max-height: 500px;">
+          <li class="list-group-item sticky-top">
+            <div class="row font-weight-bold">
+              <div class="col-md-1">No.</div>
+              <div class="col-md-6">Product</div>
+              <div class="col-md-3">Price</div>
+              <div class="col-md-2">Quantity</div>
+            </div>
+          </li>
+          <li class="list-group-item" th:each="entry,count : ${orders}">
+            <div class="row">
+              <div class="col-md-1" th:text="${count.index+1}"></div>
+              <div class="col-md-6">
+                <a
+                  th:href="@{/shop/{category}/{product}(category=${entry.product.category},
+                  product=${entry.product.productlink})}"
+                  th:text="${entry.product.productName}">
+                </a>
+              </div>
+              <div class="col-md-3" th:text="${entry.price}"></div>
+              <div class="col-md-2" th:text="${entry.quantity}"></div>
+            </div>
+          </li>
+        </ul>
+
+
+
+
+      </div>
+    </div>
+
+  </body>
+</html>

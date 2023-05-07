@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head th:replace="fragments/head :: header"></head>
+
+  <body>
+    <div th:replace="fragments/head :: nav"></div>
+
+    <div class="container" th:object="${product}">
+      <h1 class="text-center display-4 py-4" th:text="${product.productName}"></h1>
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <img class="card-img-top" th:src="${product.imageURL}" data-holder-rendered="true" style="width: 100%;" />
+        </div>
+        <div class="col-md-3" style="margin: auto 0 auto 10%;">
+          <ul class="list-group">
+            <li class="list-group-item border-0 bg-warning">
+              <h4 class="text-center card-text" th:text="${product.price} + ' ' + EUR"></h4>
+            </li>
+            <li class="row flex d-flex align-items-center">
+              <div class="col text-center">
+                <a th:if="${product.active} == true" th:href="@{/cart/add/{product}(product=${product.id})}">
+                  <button type="button" class="btn btn-danger btn-lg" style="width: 100%">Buy</button>
+                </a>
+                <a th:if="${product.active} == false">
+                  <button type="button" class="btn btn-dark btn-lg disabled" style="width: 100%">Disabled</button>
+                </a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row" style="width: 100%;">
+        <div class="col-md-12 bg-secondary" style="height: 5px;"></div>
+      </div>
+      <div class="row justify-content-md-center py-5">
+        <div class="col-md-10">
+          <h4>Details</h4>
+          <div th:utext="${product.description}" style="white-space: pre-wrap;"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="https://www.thymeleaf.org"
+  xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+  <head th:replace="fragments/head :: header"></head>
+  <link rel="stylesheet" th:href="@{/css/accountRL.css}" />
+  <body>
+    <div class="mainbody">
+      <div th:replace="fragments/head :: nav"></div>
+
+      <div class="panel-container">
+        <div class="main-block">
+          <h1>Manage Product</h1>
+
+          <form id="register" method="post" th:object="${productInfo}">
+            <hr />
+
+            <div class="form-group row">
+              <label for="productName">Product Name</label>
+              <div class="col-sm-12">
+                <input
+                  type="text"
+                  name="productName"
+                  id="productName"
+                  th:field="*{productName}"
+                  required
+                  class="form-control"
+                  />
+                <p th:if="${error} == 'true'" class="error_msg">
+                  Product name already exists!
+                </p>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="imageURL">Image URL</label>
+              <div class="col-sm-12">
+                <input
+                  type="text"
+                  name="imageURL"
+                  id="imageURL"
+                  th:field="*{imageURL}"
+                  required
+                  class="form-control"
+                  />
+              </div>
+              <div id="imagePreviewContainer"></div>
+            </div>
+
+            <div class="form-group row">
+              <label for="price">Price</label>
+              <div class="col-sm-12">
+                <input
+                  type="number"
+                  name="price"
+                  id="price"
+                  step="0.01"
+                  th:field="*{price}"
+                  required
+                  class="form-control"
+                  />
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="Category">Category</label>
+              <div class="col-sm-12">
+                <select
+                  class="form-control"
+                  required
+                  name="Category"
+                  th:field="*{category}">
+                  <optgroup label="Category">
+                    <option value="">-- Select an option --</option>
+                    <th:block th:each="cat : ${categorys}">
+                      <option th:value="${cat.name}" th:text="${cat.name}"></option>
+                    </th:block>
+                  </optgroup>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="description">Description</label>
+              <div class="col-sm-12">
+                <textarea
+                  class="form-control"
+                  required
+                  name="description"
+                  th:field="*{description}">
+                </textarea>
+              </div>
+            </div>
+            <hr />
+            <div style="padding: 10px;justify-content: center;display: flex;gap:
+              10px;">
+              <button
+                th:if="${method} == 'new'"
+                type="submit"
+                class="btn btn-success"
+                th:action="@{new}">
+                Add item
+              </button>
+              <button
+                th:if="${method} == 'edit'"
+                type="submit"
+                class="btn btn-warning"
+                th:action="@{edit/{id}(id=*{id})}">
+                Edit item
+              </button>
+              <a href="/admin" style="color: #fff;
+                background-color: #dc3545;
+                border-color: #dc3545;
+                text-decoration: none;
+                padding: 0.375rem 0.75rem;">
+                Cancel
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+    var imageUrlInput = $("#imageURL")[0];
+    var imagePreviewContainer = document.getElementById("imagePreviewContainer");
+
+    imageUrlInput.addEventListener("change", function() {
+      var imageUrl = imageUrlInput.value;
+      if (imageUrl) {
+        var imageElement = document.createElement("img");
+        imageElement.setAttribute("src", imageUrl);
+        imageElement.setAttribute("alt", "Invalid image");
+        imagePreviewContainer.innerHTML = "";
+        imageElement.style.maxWidth = "100%";
+        imagePreviewContainer.appendChild(imageElement);
+      } else {
+        imagePreviewContainer.innerHTML = "";
+      }
+    });
+    
+    const form = document.getElementById("register");
+    const select = form.querySelector("select");
+
+    form.addEventListener("submit", (event) => {
+      if (select.value === "") {
+        event.preventDefault();
+        alert("Please select a category.");
+      }
+    });
+  </script>
+</html>

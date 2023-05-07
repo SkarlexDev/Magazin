@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+  <head th:replace="fragments/head :: header"></head>
+  <body>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.5.3/bootbox.js"></script>
+    <div class="mainbody">
+      <div th:replace="fragments/head :: nav"></div>
+      <div class="container">
+        <div class="row">
+          <div class="col" style="padding: 5px 5px 20px 5px">
+            <h2>Admin Zone</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col" style="padding: 5px 5px 20px 5px">
+            <button onclick="addCategory()" class="btn btn-success">Add Category</button>
+            <a class="itemcontainer" href="/admin/product/new">
+              <button class="btn btn-success">Add Product</button>
+            </a>
+          </div>
+        </div>
+        <div class="row bg-light" style="width: 100%">
+          <div class="accordion" id="accordionExample">
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h2 class="mb-0" style="display: flex; justify-content: center">
+                  <button
+                    class="btn btn-info"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseOne"
+                    aria-expanded="true"
+                    aria-controls="collapseOne">
+                    Category manager
+                  </button>
+                </h2>
+              </div>
+              <div
+                id="collapseOne"
+                class="collapse"
+                aria-labelledby="headingOne"
+                data-bs-parent="#accordionExample">
+
+                <div class="card-footer" style="height: 200px; overflow: auto">
+                  <ul class="list-group list-group-flush">
+                    <li
+                      class="list-group-item"
+                      th:each="category : ${categorys}"
+                      style="display: flex; flex-direction: row">
+                      <div style="flex: 1" th:text="${category.name}"></div>
+                      <div>
+                        <a
+                          th:href="@{/admin/category/delete/{id}(id=${category.id})}">
+                          <button class="btn btn-danger">Delete</button>
+                        </a>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row bg-light" style="width: 100%">
+          <div class="accordion" id="accordionExample2">
+            <div class="card">
+              <div class="card-header" id="headingTwp">
+                <h2 class="mb-0" style="display: flex; justify-content: center">
+                  <button
+                    class="btn btn-info"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseTwo"
+                    aria-expanded="true"
+                    aria-controls="collapseTwo">
+                    Product manager
+                  </button>
+                </h2>
+              </div>
+              <div
+                id="collapseTwo"
+                class="collapse show"
+                aria-labelledby="headingTwo"
+                data-bs-parent="#accordionExample2">
+                <div class="card-footer">
+                  <div class="album py-5 bg-light">
+                    <div class="row">
+                      <div
+                        th:each="product : ${products}"
+                        class="col-md-3 item-list">
+                        <div class="card mb-4 box-shadow">
+                          <div
+                            th:if="${product.active} == false"
+                            class="disabled_item">
+                            <p>Disabled</p>
+                          </div>
+                          <img
+                            class="card-img-top"
+                            th:src="${product.imageURL}"
+                            data-holder-rendered="true"
+                            alt=""
+                            />
+                          <div class="card-body">
+                            <p
+                              class="text-center card-text "
+                              style="height: 85px;
+                              text-overflow: ellipsis;
+                              white-space: nowrap;
+                              overflow: hidden;"
+                              th:text="${product.productName}"></p>
+                            <p
+                              class="text-center card-text price-item"
+                              th:text="${product.price} + ' ' +
+                              EUR"></p>
+                            <div class="admin_item_control">
+                               <a
+                                 th:href="@{/shop/{category}/{product}(category=${product.category},
+                				 product=${product.productlink})}"
+                                class="button_link">
+                                <button class="btn btn-info">View</button>
+                              </a>
+                              <a
+                                th:href="@{/admin/product/edit/{id}(id=${product.id})}"
+                                class="button_link">
+                                <button class="btn btn-warning">Edit</button>
+                              </a>
+                              <a
+                                th:if="${product.active} ==
+                                true"
+                                th:href="@{/admin/product/disable/d/{id}(id=${product.id})}"
+                                class="button_link">
+                                <button class="btn btn-danger">Disable</button>
+                              </a>
+                              <a
+                                th:if="${product.active} ==
+                                false"
+                                th:href="@{/admin/product/enable/e/{id}(id=${product.id})}"
+                                class="button_link_disabled">
+                                <button class="btn btn-primary">Enable</button>
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <footer th:replace="fragments/footer :: footer"></footer>
+    </div>
+  </body>
+  <script th:inline="javascript">
+    $(document).ready(function () {
+      $(".card-header button").click(function () {
+        $(this).toggleClass("active");
+      });
+    }); 
+    function addCategory(){
+    	bootbox.dialog({
+            title: "Add new Category",
+            message: '<input type="text" class="form-control" placeholder="Category Name">',
+            buttons: {             
+              confirm: {
+                label: "Add",
+                className: "btn-primary",
+                callback: function() {
+                  var name = $('input[type="text"]').val();
+                  if (name !== "") {
+                	  var url = "admin/category/new/" + name;
+                      $.ajax({
+                          url: url,
+                          type: "POST",
+                          success: function (res, textStatus, xhr) {
+                        	  location.reload();
+                          },
+                          error: function(xhr, textStatus, errorThrown) {
+                        	  bootbox.dialog({
+                        		  title: "Error",
+                        		  message: "Category with name: `" + name + "` already exists!",
+                        		  buttons: {
+                        			  ok:{}
+                        		  },closeButton: false
+                        	  });
+                          }
+                        });
+                  }
+                }
+              },
+              cancel: {
+                  label: "Cancel",
+                  className: "btn-danger"
+              }
+            },
+            closeButton: false
+          });
+     
+    }
+  </script>
+</html>

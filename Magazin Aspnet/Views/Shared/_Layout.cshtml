@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>@ViewData["Title"]</title>
+      <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+      <link rel="stylesheet" href="~/Magazin.styles.css" asp-append-version="true" />
+
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+      <link rel="stylesheet" id="roboto-subset.css-css" href="https://mdbcdn.b-cdn.net/wp-content/themes/mdbootstrap4/docs-app/css/mdb5/fonts/roboto-subset.css?ver=3.9.0-update.5" type="text/css" media="all"/>
+      <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+   </head>
+   <body>
+      <div class="mainbody">
+         <nav class="navbar fixed-top navbar-expand-sm py-3 navbar-dark bg-dark">
+            <div class="container-fluid">
+               <a class="navbar-brand px-3 mb-0 h1 fs-4" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+               <ul class="nav navbar-nav ms-auto">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                          <li class="nav-item px-3 mb-0 h1 fs-5">
+                             <a class="nav-link" href="/cart">Cart</a>
+                          </li>
+                    }
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                          <li class="nav-item px-3 mb-0 h1 fs-5">
+                             <a class="nav-link" asp-area="" asp-controller="Login" asp-action="Login">Login</a>
+                          </li>
+                          <li class="nav-item px-3 mb-0 h1 fs-5">
+                             <a class="nav-link" href="/register">Register</a>
+                          </li>
+                    }
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                          <li class="nav-item dropdown">
+                             <a class="nav-link dropdown-toggle px-3 mb-0 h1 fs-5" data-bs-toggle="dropdown">Account</a>
+                             <div class="dropdown-menu dropdown-menu-end">
+                                <a href="/profile" class="dropdown-item">Profile</a>
+                                @if (User.IsInRole("CREATOR") || User.IsInRole("ADMIN"))
+                                {
+                                        <a href="/admin" class="dropdown-item">Admin Panel</a>
+                                }
+                                <div class="dropdown-divider"></div>
+                                <form method="post" asp-controller="Login" asp-action="Logout" id="logout">
+                                   <button type="submit" class="dropdown-item">Logout</button>
+                                </form>
+                             </div>
+                          </li>
+                    }
+               </ul>
+            </div>
+         </nav>
+        @RenderBody()        
+      </div>
+      <script src="~/lib/jquery/dist/jquery.min.js"></script>
+      <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+      <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+   </body>
+</html>
